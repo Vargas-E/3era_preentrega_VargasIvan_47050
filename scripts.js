@@ -136,7 +136,7 @@ const products = [
     image: "./assets/images/products/iced_irish.webp",
     price: 750,
     tags: ["cold", "alcoholic"],
-    desc: "Whiskey and espresso shaked and server cold. Perfect for a hot day after work.",
+    desc: "Whiskey and expresso shaked and server cold. Perfect for a hot day after work.",
     quantity: 1,
   },
 ];
