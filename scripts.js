@@ -201,7 +201,7 @@ const getCoffeeList = () => {
                 </button>
             </div>
         </div>
-        <div>${product.name.toUpperCase()}</div>
+        <div style="font-size: 14px;">${product.name.toUpperCase()}</div>
         <div>$ ${product.price}</div>
     </div>
     <div class="productType">
