@@ -138,10 +138,8 @@ class Product {
   }
 
   add() {
-    console.log("1", this);
     this.quantity += 1;
     this.changeCounter();
-    console.log("2", this);
   }
 
   substract() {
@@ -159,20 +157,15 @@ class Product {
   resetCounter() {
     this.quantity = 1;
     this.changeCounter();
-    console.log("selectedProducts:", selectedProducts);
   }
 
   addToCart() {
-    console.log("this:", this);
     const productInCart = selectedProducts.find((e) => e.name == this.name);
-    console.log("productInCart");
     if (productInCart) {
       selectedProducts = selectedProducts.map((e) =>
         e.name == this.name ? { ...e, quantity: this.quantity + e.quantity } : e
       );
-      console.log(1);
     } else {
-      console.log(2);
       selectedProducts.push({ ...this });
     }
     this.resetCounter();
@@ -181,7 +174,6 @@ class Product {
 }
 
 let filteredProducts = products.map((e) => new Product(e));
-console.log("filteredProducts:", filteredProducts);
 
 const getCoffeeList = () => {
   let adder = "";
@@ -241,7 +233,7 @@ const updateCart = () => {
       (e, i) => `<div class='itemInCart'>
                 <div class="itemText">
                   <div><b>Item:</b> ${e.name} (${e.quantity})</div>
-                  <div><b>Total:</b> ${e.quantity * e.price}</div>
+                  <div><b>Total:</b> $${e.quantity * e.price}</div>
                 </div>
                 <button class="coffeeButton--square" onclick="deleteItemFromCart(${i})"><img class="deleteIcon" src="./assets/images/delete_icon.png" alt="delete icon"></button>
               </div>`
@@ -270,7 +262,6 @@ const changeFilter = () => {
 };
 
 const orderProducts = () => {
-  console.log("entre acaaa");
   const orderSelect = document.getElementById("orderSelect");
   const order = orderSelect.value;
   if (order == "byPriceUp") {
@@ -288,14 +279,12 @@ const orderProducts = () => {
 const finishPurchase = () => {
   purchaseFinished = true;
   bodyHandler();
-  console.log("finish!!");
 };
 
 const returnToProducts = () => {
   purchaseFinished = false;
   selectedProducts = [];
   bodyHandler();
-  console.log("restart!!!");
 };
 
 const formatPurchase = () => {
@@ -315,7 +304,6 @@ const formatPurchase = () => {
     (acc, a) => acc + a.price * a.quantity,
     0
   );
-  console.log("fullPrice:", fullPrice);
   return (
     formatted +
     `<div class="purchasedItem"><b>Full cost of purchase: $${fullPrice}</b></div>`
