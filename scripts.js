@@ -459,7 +459,4 @@ const mainBody = () => {
 }
 
 // start
-while (over21 == undefined) {
-  console.log("over21 in hmtl:", over21)
-  checkAge();
-}
+
