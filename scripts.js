@@ -1,6 +1,7 @@
 let selectedProducts = [];
 const selectedTags = [];
 let purchaseFinished = false;
+let over21;
 
 const products = [
   {
@@ -120,6 +121,24 @@ const products = [
     desc: "Strawberry based frapuccino. Delicious mixture of strawberries and milk , blended with ice, with a whipped cream and strawberry syrup finish.",
     quantity: 1,
   },
+  {
+    id: 12,
+    name: "anatolia coffee",
+    image: "./assets/images/products/anatolia_coffee.webp",
+    price: 750,
+    tags: ["hot", "alcoholic"],
+    desc: "Cognac and expresso,topped with whipped cream and cinnamon syrup",
+    quantity: 1,
+  },
+  {
+    id: 13,
+    name: "iced irish coffee",
+    image: "./assets/images/products/iced_irish.webp",
+    price: 750,
+    tags: ["cold", "alcoholic"],
+    desc: "Whiskey and espresso shaked and server cold. Perfect for a hot day after work.",
+    quantity: 1,
+  },
 ];
 
 class Product {
@@ -169,7 +188,10 @@ class Product {
   }
 }
 
-let filteredProducts = products.map((e) => new Product(e));
+let filteredProducts =
+  over21 == true
+    ? products.map((e) => new Product(e))
+    : products.filter((e) => !e.tags.includes("alcoholic"));
 
 const getCoffeeList = () => {
   let adder = "";
@@ -206,11 +228,11 @@ const changeFilter = () => {
   const filterSelect = document.getElementById("filterSelect");
   const filter = filterSelect.value;
   if (filter == "all") {
-    filteredProducts = products.map((e) => new Product(e));
+    filteredProducts = filteredProductsHandler();
   } else {
-    filteredProducts = products
-      .filter((e) => e.tags.includes(filter))
-      .map((a) => new Product(a));
+    filteredProducts = filteredProductsHandler().filter((e) =>
+      e.tags.includes(filter)
+    );
   }
   getCoffeeList();
 };
@@ -225,7 +247,7 @@ const orderProducts = () => {
     filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
   }
   if (order == "byDefault") {
-    filteredProducts = products.map((e) => new Product(e));
+    filteredProducts = filteredProductsHandler();
   }
   getCoffeeList();
 };
@@ -267,6 +289,41 @@ const bodyHandler = () => {
       );
     }
   }
+};
+
+const checkAge = () => {
+  document.getElementById("mainHandler").innnerHTML = promptBody()
+  console.log("over21:", over21);
+  const age = prompt(
+    "You need to be over 21 years old to buy some of our products. Please tell us your age"
+  );
+  const numbers = "0123456789";
+  if (age) {
+    if (![...age].every((e) => numbers.includes(e))) {
+      alert("Age input is wrong. Please try again.");
+      checkAge();
+    } else {
+      if (parseInt(age) > 21) {
+        over21 = true;
+      } else {
+        over21 = false;
+      }
+      document.getElementById("mainHandler").innerHTML = mainBody()
+      filteredProducts = filteredProductsHandler();
+      bodyHandler();
+    }
+  } else {
+    alert("Age input is wrong. Please try again.");
+    checkAge();
+  }
+};
+
+const filteredProductsHandler = () => {
+  return over21 == true
+    ? products.map((e) => new Product(e))
+    : products
+        .filter((e) => !e.tags.includes("alcoholic"))
+        .map((a) => new Product(a));
 };
 
 // HTMLS
@@ -373,3 +430,27 @@ const formatPurchaseHtml = (e) => {
           </div>
           <hr class="solid"></hr>`;
 };
+
+const promptBody = () => {
+  return `<div></div>`
+}
+
+const mainBody = () => {
+  return `<section class="primaryImageContainer">
+            <img class="centerImage" src="./assets/images/coffee_central_image.webp" />
+            <div class="centerImageText">
+                <img class="logoInBanner" src="./assets/images/coffee_logo.webp" />
+                <div>The most delicious coffee in town, now just one click away</div>
+            </div>
+          </section>
+          <section class="homeBody">
+            <div id="bodyHandler" class="productOptionsFormContainer">
+            </div>
+          </section>
+          <a href="#" class="float">
+            <div>
+                ^
+                <span class="tooltipText">GO TO TOP</span>
+            </div>
+          </a>`
+}
