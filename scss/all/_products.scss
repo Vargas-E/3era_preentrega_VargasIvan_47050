@@ -1,0 +1,275 @@
+@import "./mixins";
+@import "./variables";
+@import "./components";
+
+.productOptionsFormContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  .finishContainer {
+    @extend .genericContainer;
+    width: 100%;
+    padding: 2rem;
+
+    .finishTitle {
+      text-align: center;
+    }
+    .itemsInCart {
+      font-size: 16px;
+      text-align:start;
+      .purchasedProductsList {
+        margin: 1rem 0 1rem 0;
+        max-height: 50vh;
+        overflow-y: scroll;
+        border-radius: 5px;
+        border: 1px solid black;
+        .purchasedItem {
+          
+          background-color: white;
+          padding: 1rem;
+        }
+      }
+    }
+    .buttonRight {
+      margin-top: 2rem;
+      text-align: end;
+    }
+    
+  }
+  .productsForm {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-width: 20vw;
+    padding: 1rem;
+    margin-right: 1rem;
+    background-color: $containerColor;
+    height: 50vh;
+    position: sticky;
+    top: 2vh;
+    border-radius: 5px;
+    gap: 0.75rem;
+    align-content: center;
+    #cartItems {
+      background-color: white;
+      max-height: 200px;
+      overflow-y: scroll;
+      .itemInCart {
+        border: 1px solid black;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .itemText {
+          gap: 0.25rem;
+          padding: 0.5rem;
+        }
+        .deleteIcon {
+          filter: invert(100%);
+        }
+      }
+    }
+    .finishProducts {
+      position: absolute;
+      bottom: 1rem;
+      width: 90%;
+    }
+
+  }
+  .coffeeList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+
+    .productType {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      .coffeeButtonProductsPage {
+        margin-top: 5px;
+        width: 100%;
+      }
+      &:active, &:focus {
+        .snackBar {
+          opacity: 1;
+          z-index:0;
+        }
+      }
+      .snackBar {
+        padding: 1rem;
+        position: absolute;
+        top: -230px;
+        right:10;
+        opacity: 0;
+        border: 1px solid black;
+        background-color: $buttonColor;
+        color: white;
+        border-radius: 5px;
+        z-index: -99;
+      }
+    }
+  }
+}
+
+
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.modalWindow {
+  position: fixed;
+  margin-top: 2rem;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  visibility: hidden;
+  .modalButton {
+    @include flexCenter(row, center, center, auto, auto);
+    position: absolute;
+    bottom: 2rem;
+    width: 80%;
+  }
+  &:target {
+    margin-top: 5rem;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    width: 400px;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    background-color: $containerColor;
+    border: 2px solid black;
+    border-radius: 5px;
+  }
+}
+
+
+
+@media (max-width: 1080px) {
+  .productOptionsFormContainer {
+    flex-direction: column;
+    .productsForm {
+      margin: 1rem 0 1rem 0;
+      top: initial;
+      // max-height: 40vh;
+      .formItems {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .sliderContainer {
+        width: 100%;
+        .slider {
+          appearance: none;
+          width: 100%;
+          background: $secondaryTone;
+          -webkit-transition: 0.2s;
+          transition: opacity 0.2s;
+          border-radius: 5px;
+        }
+      }
+      .finishProducts {
+        position: absolute;
+        bottom: 1rem;
+        width: 90%;
+      }
+      .buttonLink {
+        display: flex;
+        justify-content: center;
+      }
+    }
+    .coffeeList {
+      .fixWidth {
+        max-width: 250px;
+        .imageFixProducts {
+          width: 250px;
+        }
+      }
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      .productType {
+        display: flex;
+        justify-content: center;
+        .coffeeButtonProductsPage {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 950px) {
+  .productOptionsFormContainer {
+    .coffeeList {
+      .fixWidth {
+        max-width: 400px;
+        .imageFixProducts {
+          width: 400px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .productOptionsFormContainer {
+    flex-direction: column;
+    .productsForm {
+      margin: 1rem 0 1rem 0;
+      top: initial;
+      //max-height: 40vh;
+      .formItems {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .sliderContainer {
+        width: 100%;
+        .slider {
+          appearance: none;
+          width: 100%;
+          background: $secondaryTone;
+          -webkit-transition: 0.2s;
+          transition: opacity 0.2s;
+          border-radius: 5px;
+        }
+      }
+      .finishProducts {
+        position: absolute;
+        bottom: 1rem;
+        width: 90%;
+      }
+      .buttonLink {
+        display: flex;
+        justify-content: center;
+      }
+    }
+    .coffeeList {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      .productType {
+        display: flex;
+        justify-content: center;
+        .coffeeButtonProductsPage {
+          margin-top: 5px;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

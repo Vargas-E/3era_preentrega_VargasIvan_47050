@@ -1,0 +1,411 @@
+@import "./mixins";
+@import "./variables";
+
+body {
+  background-image: url("../assets/images/background_final.webp");
+  background-size: contain;
+  backdrop-filter: saturate(5px);
+  width: 100%;
+  font-family: "Lato";
+  z-index: 0;
+}
+
+.homeBody {
+  @include flexCenter(column, null, null, 0 1rem 0 1rem, auto);
+  max-width: 1200px;
+}
+
+.primaryImageContainer {
+  position: relative;
+  text-align: center;
+  color: $buttonColor;
+  font-size: 25px;
+  font-style: italic;
+
+  .centerImageText {
+    &:hover {
+      cursor: default;
+    }
+    border-radius: 10px;
+    background-color: #cea16696;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .centerImage {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+  }
+}
+
+footer {
+  @include flexCenter(column, center, center, 4rem 0 2rem 0, auto);
+  background-color: $buttonColor;
+  color: $imageTextColor;
+  &:hover {
+    cursor: default;
+  }
+  .socialLinkIcons {
+    @include flexCenter(row, space-around, center, auto, auto auto 1rem auto);
+    width: 20%;
+  }
+  .socialLinkIcon {
+    width: 30px;
+  }
+}
+
+.fb {
+  &:hover {
+    filter: drop-shadow(2px 2px blue);
+  }
+}
+
+.ig {
+  &:hover {
+    filter: drop-shadow(2px 2px orange);
+  }
+}
+
+.lkdn {
+  &:hover {
+    filter: drop-shadow(2px 2px darkblue);
+  }
+}
+
+.twt {
+  &:hover {
+    filter: drop-shadow(2px 2px #1da1f2);
+  }
+}
+
+.wp {
+  &:hover {
+    filter: drop-shadow(2px 2px green);
+  }
+}
+
+.navBar {
+  background-color: $buttonColor;
+  --bs-navbar-padding-y: 0;
+  --bs-navbar-hover-color: #bd1d15;
+  --bs-navbar-color: white;
+  .navbar-expand-md {
+    padding-right: 1rem;
+    justify-content: flex-end;
+  }
+  .logo {
+    background-color: $containerColor;
+    height: 70px;
+  }
+  .sand {
+    margin-right: 1rem;
+  }
+  .navbar-collapse {
+    justify-content: flex-end;
+  }
+  .nav-link.disabled {
+    color: $secondaryTone;
+  }
+}
+
+.genericContainer {
+  @include flexCenter(column, null, null, 1rem, 2rem 0 1rem 0);
+  background-color: $containerColor;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.genericContainer--button {
+  @extend .genericContainer;
+  @include flexCenter(row, space-between, center, 1rem, 1rem 0 0 0);
+}
+
+.genericContainer--fixMargin {
+  @extend .genericContainer;
+  margin: 0;
+}
+
+.coffeeButton {
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    color: $secondaryTone;
+  }
+  background-color: $buttonColor;
+  color: #f2f2f2;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.5rem;
+  vertical-align: middle;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.coffeeButton--bottom {
+  @extend .coffeeButton;
+  @include flexCenter(row, center, center, 0.5rem, 0rem);
+  width: 100%;
+}
+
+.coffeeButton--square {
+  @extend .coffeeButton;
+  border-radius: 0;
+}
+
+
+.coffeeCard {
+  @include transitionSet;
+  &:hover,
+  &:active {
+    @include elevateWithShadow(10em, false);
+  }
+  max-width: 230px;
+  margin: 0.5rem;
+  .coffeeProductImageContainer {
+    position: relative;
+    border-radius: 5px 5px 0 0;
+    text-align: center;
+    height: 300px;
+    width: 230px;
+    .coffeeImage {
+      width: 100%;
+      height: 100%;
+      border-radius: 5px 5px 0 0;
+      object-fit: cover;
+    }
+    .coffeeProductImageDesc {
+      border-radius: 5px 5px 0 0;
+      padding: 1rem;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: black;
+      color: white;
+      font-family: sans-serif;
+      opacity: 0;
+      transition: visibility 0s, opacity 0.5s linear;
+      &:hover {
+        visibility: visible;
+        opacity: 0.8;
+      }
+    }
+  }
+  .coffeeDesc {
+    font-weight: bold;
+    text-align: center;
+    padding: 1rem;
+    background-color: $containerColor;
+    border-radius: 0 0 5px 5px;
+    .quantitySelectorContainer {
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      vertical-align: middle;
+      .itemCounter {
+        width: 50%;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid black;
+        background-color: white;
+      }
+    }
+  }
+}
+
+.coffeeCard--space-responsive {
+  @extend .coffeeCard;
+}
+
+.float {
+  z-index: 10;
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: $buttonColor;
+  color: #fff;
+  border-radius: 50px;
+  border: 1px solid $containerColor;
+  text-align: center;
+  text-decoration: none;
+  font-size: 40px;
+  &:hover {
+    visibility: visible;
+    .tooltipText {
+      visibility: visible;
+    }
+  }
+  .tooltipText {
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 10px;
+    visibility: hidden;
+    position: fixed;
+    bottom: 105px;
+    right: 20px;
+    width: 100px;
+    background-color: $buttonColor;
+    color: $containerColor;
+    text-align: center;
+    padding: 5px 0;
+    z-index: 1;
+  }
+}
+
+a div {
+  padding-top: 0.4rem;
+}
+
+/**/
+
+.carouselArrow {
+  background-color: $containerColor;
+  border-radius: 5px;
+  width: 60px;
+}
+
+.imageContainer {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  color: $imageTextColor;
+  .carouselImage {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  .carouselImageText {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .carouselImageText--corner {
+    @extend .carouselImageText;
+    top: 7%;
+    left: 15%;
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 1080px) {
+  body {
+    font-size: 12px;
+  }
+
+  footer {
+    .socialLinkIcons {
+      width: 40%;
+    }
+  }
+
+  .primaryImageContainer {
+    font-size: 20px;
+    .centerImageText {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 70%;
+      .logoInBanner {
+        width: 100%;
+      }
+    }
+  }
+
+  .genericContainer {
+    font-size: 18px;
+  }
+
+  .imageContainer {
+    .carouselImage {
+      width: 100%;
+      height: 500px;
+    }
+    .carouselImageText--corner {
+      left: 15%;
+      font-size: 24px;
+    }
+  }
+
+  .coffeeCard--space-responsive {
+    margin-right: 4rem;
+    margin-left: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  footer {
+    .socialLinkIcons {
+      width: 60%;
+    }
+  }
+
+  .genericContainer {
+    font-size: 14px;
+  }
+
+  .float {
+    bottom: 25px;
+    right: 20px;
+    font-size: 40px;
+    .tooltipText {
+      visibility: hidden;
+    }
+  }
+
+  .imageContainer {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    color: $imageTextColor;
+    .carouselImage {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .bandImageContainerText {
+      position: absolute;
+      top: 80%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .carouselImageText--corner {
+      left: 50%;
+      font-size: 24px;
+    }
+  }
+
+  .coffeeCard {
+    min-width: 100%;
+    .coffeeProductImageContainer {
+      width: 100%;
+      .coffeeImage {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .coffeeCard--space-responsive {
+    height: 100%;
+  }
+
+  .carouselArrow {
+    background-color: transparent;
+    width: 30px;
+    color: black;
+    margin-bottom: 1rem;
+  }
+}

@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap");
+@import "./all/mixins";
+@import "./all/variables";
+@import "./all/components";
+@import "./all/products";
+
+
+* {
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+hr.solid {
+  color: black;
+    display: block;
+    margin: 0;
+    border-style: inset;
+    border-width: 1px;
+    opacity: 1;
+  }
+
+
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Products</title>
+</head>
+
+<body>
+    <header>
+    </header>
+    <main>
+        <section class="primaryImageContainer">
+            <img class="centerImage" src="./assets/images/coffee_central_image.webp" />
+            <div class="centerImageText">
+                <img class="logoInBanner" src="./assets/images/coffee_logo.webp" />
+                <div>The most delicious coffee in town, now just one click away</div>
+            </div>
+        </section>
+        <section class="homeBody ">
+            <div  id="bodyHandler" class="productOptionsFormContainer">
+                <!-- <form class="productsForm">
+                    <label for="filterSelect"><b>Filter by:</b></label>
+                    <select name="order" id="filterSelect" onchange="changeFilter()">
+                        <option value="all">Show all</option>
+                        <option value="hot">Filter by hot beverages</option>
+                        <option value="cold">Filter by cold beverages</option>
+                    </select>
+                    <label for="orderSelect"><b>Order by:</b></label>
+                    <select name="order" id="orderSelect" onchange="orderProducts()">
+                        <option value="byDefault">By default</option>
+                        <option value="byPriceUp">Price (higher price first)</option>
+                        <option value="byPriceDown">Precio (lower price first)</option>
+                    </select>
+                    <div id="cartItems"></div>
+                    <button class="coffeeButton finishProducts" onclick="finishPurchase()">Finish purchase</button>
+                </form>
+                <article id="coffeeProductsContainer" class="coffeeList">
+                </article> -->
+            </div>
+        </section>
+        <a href="#" class="float">
+            <div>
+                ^
+                <span class="tooltipText">GO TO TOP</span>
+            </div>
+        </a>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script src="scripts.js"></script>
+    <script type="text/javascript">
+        // getCoffeeList();
+        bodyHandler();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1072 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap"); /* general use flex with general usage properties */
+/* set for transition. Put in css component with elevateWithShadow to use*/
+/* transformation. Put in css component with transitionSet with &:trigger to use*/
+/* general use flex with general usage properties */
+/* set for transition. Put in css component with elevateWithShadow to use*/
+/* transformation. Put in css component with transitionSet with &:trigger to use*/
+body {
+  background-image: url("../assets/images/background_final.webp");
+  background-size: contain;
+  backdrop-filter: saturate(5px);
+  width: 100%;
+  font-family: "Lato";
+  z-index: 0;
+}
+
+.homeBody {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 0 1rem;
+  margin: auto;
+  max-width: 1200px;
+}
+
+.primaryImageContainer {
+  position: relative;
+  text-align: center;
+  color: #1e1e1e;
+  font-size: 25px;
+  font-style: italic;
+}
+.primaryImageContainer .centerImageText {
+  border-radius: 10px;
+  background-color: rgba(206, 161, 102, 0.5882352941);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.primaryImageContainer .centerImageText:hover {
+  cursor: default;
+}
+.primaryImageContainer .centerImage {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0 2rem 0;
+  margin: auto;
+  background-color: #1e1e1e;
+  color: white;
+}
+footer:hover {
+  cursor: default;
+}
+footer .socialLinkIcons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: auto;
+  margin: auto auto 1rem auto;
+  width: 20%;
+}
+footer .socialLinkIcon {
+  width: 30px;
+}
+
+.fb:hover {
+  filter: drop-shadow(2px 2px blue);
+}
+
+.ig:hover {
+  filter: drop-shadow(2px 2px orange);
+}
+
+.lkdn:hover {
+  filter: drop-shadow(2px 2px darkblue);
+}
+
+.twt:hover {
+  filter: drop-shadow(2px 2px #1da1f2);
+}
+
+.wp:hover {
+  filter: drop-shadow(2px 2px green);
+}
+
+.navBar {
+  background-color: #1e1e1e;
+  --bs-navbar-padding-y: 0;
+  --bs-navbar-hover-color: #bd1d15;
+  --bs-navbar-color: white;
+}
+.navBar .navbar-expand-md {
+  padding-right: 1rem;
+  justify-content: flex-end;
+}
+.navBar .logo {
+  background-color: #d2b48c;
+  height: 70px;
+}
+.navBar .sand {
+  margin-right: 1rem;
+}
+.navBar .navbar-collapse {
+  justify-content: flex-end;
+}
+.navBar .nav-link.disabled {
+  color: #bd1d15;
+}
+
+.genericContainer, .productOptionsFormContainer .finishContainer, .genericContainer--fixMargin, .genericContainer--button {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 2rem 0 1rem 0;
+  background-color: #d2b48c;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.genericContainer--button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem 0 0 0;
+}
+
+.genericContainer--fixMargin {
+  margin: 0;
+}
+
+.coffeeButton, .coffeeButton--square, .coffeeButton--bottom {
+  transition: all 0.2s ease-in-out;
+  background-color: #1e1e1e;
+  color: #f2f2f2;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.5rem;
+  vertical-align: middle;
+  cursor: pointer;
+  text-decoration: none;
+}
+.coffeeButton:hover, .coffeeButton--square:hover, .coffeeButton--bottom:hover {
+  color: #bd1d15;
+}
+
+.coffeeButton--bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  margin: 0rem;
+  width: 100%;
+}
+
+.coffeeButton--square {
+  border-radius: 0;
+}
+
+.coffeeCard, .coffeeCard--space-responsive {
+  transition: all 0.5s ease-in-out;
+  max-width: 230px;
+  margin: 0.5rem;
+}
+.coffeeCard:hover, .coffeeCard--space-responsive:hover, .coffeeCard:active, .coffeeCard--space-responsive:active {
+  transform: scale(1.05, 1.05);
+}
+.coffeeCard .coffeeProductImageContainer, .coffeeCard--space-responsive .coffeeProductImageContainer {
+  position: relative;
+  border-radius: 5px 5px 0 0;
+  text-align: center;
+  height: 300px;
+  width: 230px;
+}
+.coffeeCard .coffeeProductImageContainer .coffeeImage, .coffeeCard--space-responsive .coffeeProductImageContainer .coffeeImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px 5px 0 0;
+  object-fit: cover;
+}
+.coffeeCard .coffeeProductImageContainer .coffeeProductImageDesc, .coffeeCard--space-responsive .coffeeProductImageContainer .coffeeProductImageDesc {
+  border-radius: 5px 5px 0 0;
+  padding: 1rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: black;
+  color: white;
+  font-family: sans-serif;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+.coffeeCard .coffeeProductImageContainer .coffeeProductImageDesc:hover, .coffeeCard--space-responsive .coffeeProductImageContainer .coffeeProductImageDesc:hover {
+  visibility: visible;
+  opacity: 0.8;
+}
+.coffeeCard .coffeeDesc, .coffeeCard--space-responsive .coffeeDesc {
+  font-weight: bold;
+  text-align: center;
+  padding: 1rem;
+  background-color: #d2b48c;
+  border-radius: 0 0 5px 5px;
+}
+.coffeeCard .coffeeDesc .quantitySelectorContainer, .coffeeCard--space-responsive .coffeeDesc .quantitySelectorContainer {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  vertical-align: middle;
+}
+.coffeeCard .coffeeDesc .quantitySelectorContainer .itemCounter, .coffeeCard--space-responsive .coffeeDesc .quantitySelectorContainer .itemCounter {
+  width: 50%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.float {
+  z-index: 10;
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #1e1e1e;
+  color: #fff;
+  border-radius: 50px;
+  border: 1px solid #d2b48c;
+  text-align: center;
+  text-decoration: none;
+  font-size: 40px;
+}
+.float:hover {
+  visibility: visible;
+}
+.float:hover .tooltipText {
+  visibility: visible;
+}
+.float .tooltipText {
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 10px;
+  visibility: hidden;
+  position: fixed;
+  bottom: 105px;
+  right: 20px;
+  width: 100px;
+  background-color: #1e1e1e;
+  color: #d2b48c;
+  text-align: center;
+  padding: 5px 0;
+  z-index: 1;
+}
+
+a div {
+  padding-top: 0.4rem;
+}
+
+/**/
+.carouselArrow {
+  background-color: #d2b48c;
+  border-radius: 5px;
+  width: 60px;
+}
+
+.imageContainer {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+.imageContainer .carouselImage {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.imageContainer .carouselImageText, .imageContainer .carouselImageText--corner {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.imageContainer .carouselImageText--corner {
+  top: 7%;
+  left: 15%;
+  font-size: 24px;
+}
+
+@media (max-width: 1080px) {
+  body {
+    font-size: 12px;
+  }
+  footer .socialLinkIcons {
+    width: 40%;
+  }
+  .primaryImageContainer {
+    font-size: 20px;
+  }
+  .primaryImageContainer .centerImageText {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 70%;
+  }
+  .primaryImageContainer .centerImageText .logoInBanner {
+    width: 100%;
+  }
+  .genericContainer, .productOptionsFormContainer .finishContainer, .genericContainer--button, .genericContainer--fixMargin {
+    font-size: 18px;
+  }
+  .imageContainer .carouselImage {
+    width: 100%;
+    height: 500px;
+  }
+  .imageContainer .carouselImageText--corner {
+    left: 15%;
+    font-size: 24px;
+  }
+  .coffeeCard--space-responsive {
+    margin-right: 4rem;
+    margin-left: 4rem;
+  }
+}
+@media (max-width: 768px) {
+  footer .socialLinkIcons {
+    width: 60%;
+  }
+  .genericContainer, .productOptionsFormContainer .finishContainer, .genericContainer--button, .genericContainer--fixMargin {
+    font-size: 14px;
+  }
+  .float {
+    bottom: 25px;
+    right: 20px;
+    font-size: 40px;
+  }
+  .float .tooltipText {
+    visibility: hidden;
+  }
+  .imageContainer {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    color: white;
+  }
+  .imageContainer .carouselImage {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  .imageContainer .bandImageContainerText {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .imageContainer .carouselImageText--corner {
+    left: 50%;
+    font-size: 24px;
+  }
+  .coffeeCard, .coffeeCard--space-responsive {
+    min-width: 100%;
+  }
+  .coffeeCard .coffeeProductImageContainer, .coffeeCard--space-responsive .coffeeProductImageContainer {
+    width: 100%;
+  }
+  .coffeeCard .coffeeProductImageContainer .coffeeImage, .coffeeCard--space-responsive .coffeeProductImageContainer .coffeeImage {
+    width: 100%;
+    height: 100%;
+  }
+  .coffeeCard--space-responsive {
+    height: 100%;
+  }
+  .carouselArrow {
+    background-color: transparent;
+    width: 30px;
+    color: black;
+    margin-bottom: 1rem;
+  }
+}
+/* general use flex with general usage properties */
+/* set for transition. Put in css component with elevateWithShadow to use*/
+/* transformation. Put in css component with transitionSet with &:trigger to use*/
+/* general use flex with general usage properties */
+/* set for transition. Put in css component with elevateWithShadow to use*/
+/* transformation. Put in css component with transitionSet with &:trigger to use*/
+body {
+  background-image: url("../assets/images/background_final.webp");
+  background-size: contain;
+  backdrop-filter: saturate(5px);
+  width: 100%;
+  font-family: "Lato";
+  z-index: 0;
+}
+
+.homeBody {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 0 1rem;
+  margin: auto;
+  max-width: 1200px;
+}
+
+.primaryImageContainer {
+  position: relative;
+  text-align: center;
+  color: #1e1e1e;
+  font-size: 25px;
+  font-style: italic;
+}
+.primaryImageContainer .centerImageText {
+  border-radius: 10px;
+  background-color: rgba(206, 161, 102, 0.5882352941);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.primaryImageContainer .centerImageText:hover {
+  cursor: default;
+}
+.primaryImageContainer .centerImage {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0 2rem 0;
+  margin: auto;
+  background-color: #1e1e1e;
+  color: white;
+}
+footer:hover {
+  cursor: default;
+}
+footer .socialLinkIcons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: auto;
+  margin: auto auto 1rem auto;
+  width: 20%;
+}
+footer .socialLinkIcon {
+  width: 30px;
+}
+
+.fb:hover {
+  filter: drop-shadow(2px 2px blue);
+}
+
+.ig:hover {
+  filter: drop-shadow(2px 2px orange);
+}
+
+.lkdn:hover {
+  filter: drop-shadow(2px 2px darkblue);
+}
+
+.twt:hover {
+  filter: drop-shadow(2px 2px #1da1f2);
+}
+
+.wp:hover {
+  filter: drop-shadow(2px 2px green);
+}
+
+.navBar {
+  background-color: #1e1e1e;
+  --bs-navbar-padding-y: 0;
+  --bs-navbar-hover-color: #bd1d15;
+  --bs-navbar-color: white;
+}
+.navBar .navbar-expand-md {
+  padding-right: 1rem;
+  justify-content: flex-end;
+}
+.navBar .logo {
+  background-color: #d2b48c;
+  height: 70px;
+}
+.navBar .sand {
+  margin-right: 1rem;
+}
+.navBar .navbar-collapse {
+  justify-content: flex-end;
+}
+.navBar .nav-link.disabled {
+  color: #bd1d15;
+}
+
+.genericContainer, .productOptionsFormContainer .finishContainer, .genericContainer--button, .genericContainer--fixMargin {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 2rem 0 1rem 0;
+  background-color: #d2b48c;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.genericContainer--button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem 0 0 0;
+}
+
+.genericContainer--fixMargin {
+  margin: 0;
+}
+
+.coffeeButton, .coffeeButton--bottom, .coffeeButton--square {
+  transition: all 0.2s ease-in-out;
+  background-color: #1e1e1e;
+  color: #f2f2f2;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.5rem;
+  vertical-align: middle;
+  cursor: pointer;
+  text-decoration: none;
+}
+.coffeeButton:hover, .coffeeButton--bottom:hover, .coffeeButton--square:hover {
+  color: #bd1d15;
+}
+
+.coffeeButton--bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  margin: 0rem;
+  width: 100%;
+}
+
+.coffeeButton--square {
+  border-radius: 0;
+}
+
+.coffeeCard, .coffeeCard--space-responsive {
+  transition: all 0.5s ease-in-out;
+  max-width: 230px;
+  margin: 0.5rem;
+}
+.coffeeCard:hover, .coffeeCard--space-responsive:hover, .coffeeCard:active, .coffeeCard--space-responsive:active {
+  transform: scale(1.05, 1.05);
+}
+.coffeeCard .coffeeProductImageContainer, .coffeeCard--space-responsive .coffeeProductImageContainer {
+  position: relative;
+  border-radius: 5px 5px 0 0;
+  text-align: center;
+  height: 300px;
+  width: 230px;
+}
+.coffeeCard .coffeeProductImageContainer .coffeeImage, .coffeeCard--space-responsive .coffeeProductImageContainer .coffeeImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px 5px 0 0;
+  object-fit: cover;
+}
+.coffeeCard .coffeeProductImageContainer .coffeeProductImageDesc, .coffeeCard--space-responsive .coffeeProductImageContainer .coffeeProductImageDesc {
+  border-radius: 5px 5px 0 0;
+  padding: 1rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: black;
+  color: white;
+  font-family: sans-serif;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+.coffeeCard .coffeeProductImageContainer .coffeeProductImageDesc:hover, .coffeeCard--space-responsive .coffeeProductImageContainer .coffeeProductImageDesc:hover {
+  visibility: visible;
+  opacity: 0.8;
+}
+.coffeeCard .coffeeDesc, .coffeeCard--space-responsive .coffeeDesc {
+  font-weight: bold;
+  text-align: center;
+  padding: 1rem;
+  background-color: #d2b48c;
+  border-radius: 0 0 5px 5px;
+}
+.coffeeCard .coffeeDesc .quantitySelectorContainer, .coffeeCard--space-responsive .coffeeDesc .quantitySelectorContainer {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  vertical-align: middle;
+}
+.coffeeCard .coffeeDesc .quantitySelectorContainer .itemCounter, .coffeeCard--space-responsive .coffeeDesc .quantitySelectorContainer .itemCounter {
+  width: 50%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.float {
+  z-index: 10;
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #1e1e1e;
+  color: #fff;
+  border-radius: 50px;
+  border: 1px solid #d2b48c;
+  text-align: center;
+  text-decoration: none;
+  font-size: 40px;
+}
+.float:hover {
+  visibility: visible;
+}
+.float:hover .tooltipText {
+  visibility: visible;
+}
+.float .tooltipText {
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 10px;
+  visibility: hidden;
+  position: fixed;
+  bottom: 105px;
+  right: 20px;
+  width: 100px;
+  background-color: #1e1e1e;
+  color: #d2b48c;
+  text-align: center;
+  padding: 5px 0;
+  z-index: 1;
+}
+
+a div {
+  padding-top: 0.4rem;
+}
+
+/**/
+.carouselArrow {
+  background-color: #d2b48c;
+  border-radius: 5px;
+  width: 60px;
+}
+
+.imageContainer {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+.imageContainer .carouselImage {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.imageContainer .carouselImageText, .imageContainer .carouselImageText--corner {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.imageContainer .carouselImageText--corner {
+  top: 7%;
+  left: 15%;
+  font-size: 24px;
+}
+
+@media (max-width: 1080px) {
+  body {
+    font-size: 12px;
+  }
+  footer .socialLinkIcons {
+    width: 40%;
+  }
+  .primaryImageContainer {
+    font-size: 20px;
+  }
+  .primaryImageContainer .centerImageText {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 70%;
+  }
+  .primaryImageContainer .centerImageText .logoInBanner {
+    width: 100%;
+  }
+  .genericContainer, .productOptionsFormContainer .finishContainer, .genericContainer--button, .genericContainer--fixMargin {
+    font-size: 18px;
+  }
+  .imageContainer .carouselImage {
+    width: 100%;
+    height: 500px;
+  }
+  .imageContainer .carouselImageText--corner {
+    left: 15%;
+    font-size: 24px;
+  }
+  .coffeeCard--space-responsive {
+    margin-right: 4rem;
+    margin-left: 4rem;
+  }
+}
+@media (max-width: 768px) {
+  footer .socialLinkIcons {
+    width: 60%;
+  }
+  .genericContainer, .productOptionsFormContainer .finishContainer, .genericContainer--button, .genericContainer--fixMargin {
+    font-size: 14px;
+  }
+  .float {
+    bottom: 25px;
+    right: 20px;
+    font-size: 40px;
+  }
+  .float .tooltipText {
+    visibility: hidden;
+  }
+  .imageContainer {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    color: white;
+  }
+  .imageContainer .carouselImage {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  .imageContainer .bandImageContainerText {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .imageContainer .carouselImageText--corner {
+    left: 50%;
+    font-size: 24px;
+  }
+  .coffeeCard, .coffeeCard--space-responsive {
+    min-width: 100%;
+  }
+  .coffeeCard .coffeeProductImageContainer, .coffeeCard--space-responsive .coffeeProductImageContainer {
+    width: 100%;
+  }
+  .coffeeCard .coffeeProductImageContainer .coffeeImage, .coffeeCard--space-responsive .coffeeProductImageContainer .coffeeImage {
+    width: 100%;
+    height: 100%;
+  }
+  .coffeeCard--space-responsive {
+    height: 100%;
+  }
+  .carouselArrow {
+    background-color: transparent;
+    width: 30px;
+    color: black;
+    margin-bottom: 1rem;
+  }
+}
+.productOptionsFormContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.productOptionsFormContainer .finishContainer {
+  width: 100%;
+  padding: 2rem;
+}
+.productOptionsFormContainer .finishContainer .finishTitle {
+  text-align: center;
+}
+.productOptionsFormContainer .finishContainer .itemsInCart {
+  font-size: 16px;
+  text-align: start;
+}
+.productOptionsFormContainer .finishContainer .itemsInCart .purchasedProductsList {
+  margin: 1rem 0 1rem 0;
+  max-height: 50vh;
+  overflow-y: scroll;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+.productOptionsFormContainer .finishContainer .itemsInCart .purchasedProductsList .purchasedItem {
+  background-color: white;
+  padding: 1rem;
+}
+.productOptionsFormContainer .finishContainer .buttonRight {
+  margin-top: 2rem;
+  text-align: end;
+}
+.productOptionsFormContainer .productsForm {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 20vw;
+  padding: 1rem;
+  margin-right: 1rem;
+  background-color: #d2b48c;
+  height: 50vh;
+  position: sticky;
+  top: 2vh;
+  border-radius: 5px;
+  gap: 0.75rem;
+  align-content: center;
+}
+.productOptionsFormContainer .productsForm #cartItems {
+  background-color: white;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+.productOptionsFormContainer .productsForm #cartItems .itemInCart {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.productOptionsFormContainer .productsForm #cartItems .itemInCart .itemText {
+  gap: 0.25rem;
+  padding: 0.5rem;
+}
+.productOptionsFormContainer .productsForm #cartItems .itemInCart .deleteIcon {
+  filter: invert(100%);
+}
+.productOptionsFormContainer .productsForm .finishProducts {
+  position: absolute;
+  bottom: 1rem;
+  width: 90%;
+}
+.productOptionsFormContainer .coffeeList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+.productOptionsFormContainer .coffeeList .productType {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.productOptionsFormContainer .coffeeList .productType .coffeeButtonProductsPage {
+  margin-top: 5px;
+  width: 100%;
+}
+.productOptionsFormContainer .coffeeList .productType:active .snackBar, .productOptionsFormContainer .coffeeList .productType:focus .snackBar {
+  opacity: 1;
+  z-index: 0;
+}
+.productOptionsFormContainer .coffeeList .productType .snackBar {
+  padding: 1rem;
+  position: absolute;
+  top: -230px;
+  right: 10;
+  opacity: 0;
+  border: 1px solid black;
+  background-color: #1e1e1e;
+  color: white;
+  border-radius: 5px;
+  z-index: -99;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.modalWindow {
+  position: fixed;
+  margin-top: 2rem;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  visibility: hidden;
+}
+.modalWindow .modalButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: auto;
+  margin: auto;
+  position: absolute;
+  bottom: 2rem;
+  width: 80%;
+}
+.modalWindow:target {
+  margin-top: 5rem;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  width: 400px;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background-color: #d2b48c;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+@media (max-width: 1080px) {
+  .productOptionsFormContainer {
+    flex-direction: column;
+  }
+  .productOptionsFormContainer .productsForm {
+    margin: 1rem 0 1rem 0;
+    top: initial;
+  }
+  .productOptionsFormContainer .productsForm .formItems {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .productOptionsFormContainer .productsForm .sliderContainer {
+    width: 100%;
+  }
+  .productOptionsFormContainer .productsForm .sliderContainer .slider {
+    appearance: none;
+    width: 100%;
+    background: #bd1d15;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+    border-radius: 5px;
+  }
+  .productOptionsFormContainer .productsForm .finishProducts {
+    position: absolute;
+    bottom: 1rem;
+    width: 90%;
+  }
+  .productOptionsFormContainer .productsForm .buttonLink {
+    display: flex;
+    justify-content: center;
+  }
+  .productOptionsFormContainer .coffeeList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .productOptionsFormContainer .coffeeList .fixWidth {
+    max-width: 250px;
+  }
+  .productOptionsFormContainer .coffeeList .fixWidth .imageFixProducts {
+    width: 250px;
+  }
+  .productOptionsFormContainer .coffeeList .productType {
+    display: flex;
+    justify-content: center;
+  }
+  .productOptionsFormContainer .coffeeList .productType .coffeeButtonProductsPage {
+    width: 100%;
+  }
+}
+@media (max-width: 950px) {
+  .productOptionsFormContainer .coffeeList .fixWidth {
+    max-width: 400px;
+  }
+  .productOptionsFormContainer .coffeeList .fixWidth .imageFixProducts {
+    width: 400px;
+  }
+}
+@media (max-width: 768px) {
+  .productOptionsFormContainer {
+    flex-direction: column;
+  }
+  .productOptionsFormContainer .productsForm {
+    margin: 1rem 0 1rem 0;
+    top: initial;
+  }
+  .productOptionsFormContainer .productsForm .formItems {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .productOptionsFormContainer .productsForm .sliderContainer {
+    width: 100%;
+  }
+  .productOptionsFormContainer .productsForm .sliderContainer .slider {
+    appearance: none;
+    width: 100%;
+    background: #bd1d15;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+    border-radius: 5px;
+  }
+  .productOptionsFormContainer .productsForm .finishProducts {
+    position: absolute;
+    bottom: 1rem;
+    width: 90%;
+  }
+  .productOptionsFormContainer .productsForm .buttonLink {
+    display: flex;
+    justify-content: center;
+  }
+  .productOptionsFormContainer .coffeeList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .productOptionsFormContainer .coffeeList .productType {
+    display: flex;
+    justify-content: center;
+  }
+  .productOptionsFormContainer .coffeeList .productType .coffeeButtonProductsPage {
+    margin-top: 5px;
+    width: 100%;
+  }
+}
+* {
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+hr.solid {
+  color: black;
+  display: block;
+  margin: 0;
+  border-style: inset;
+  border-width: 1px;
+  opacity: 1;
+}
+
+/*# sourceMappingURL=styles.css.map */
