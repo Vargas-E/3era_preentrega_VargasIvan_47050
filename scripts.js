@@ -262,10 +262,10 @@ const orderProducts = () => {
   const orderSelect = document.getElementById("orderSelect");
   const order = orderSelect.value;
   if (order == "byPriceUp") {
-    filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+    filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
   }
   if (order == "byPriceDown") {
-    filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+    filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
   }
   if (order == "byDefault") {
     filteredProducts = products.map((e) => new Product(e));
