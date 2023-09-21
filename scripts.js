@@ -459,3 +459,6 @@ const mainBody = () => {
 }
 
 
+while (over21 == undefined) {
+  checkAge();
+}
