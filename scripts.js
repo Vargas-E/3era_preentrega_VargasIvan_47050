@@ -293,7 +293,6 @@ const bodyHandler = () => {
 
 const checkAge = () => {
   document.getElementById("mainHandler").innnerHTML = promptBody()
-  console.log("over21:", over21);
   const age = prompt(
     "You need to be over 21 years old to buy some of our products. Please tell us your age"
   );
@@ -325,6 +324,8 @@ const filteredProductsHandler = () => {
         .filter((e) => !e.tags.includes("alcoholic"))
         .map((a) => new Product(a));
 };
+
+
 
 // HTMLS
 const coffeeCardHtml = (product, index) => {
@@ -455,4 +456,10 @@ const mainBody = () => {
                 <span class="tooltipText">GO TO TOP</span>
             </div>
           </a>`
+}
+
+// start
+while (over21 == undefined) {
+  console.log("over21 in hmtl:", over21)
+  checkAge();
 }
