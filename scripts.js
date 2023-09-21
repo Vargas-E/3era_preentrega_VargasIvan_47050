@@ -2,9 +2,6 @@ let selectedProducts = [];
 const selectedTags = [];
 let purchaseFinished = false;
 
-// const filteredProducts = products.filter((e) =>
-//   selectedTags.some((a) => e.tags.includes(a))
-// );
 
 const products = [
   {
