@@ -2,7 +2,6 @@ let selectedProducts = [];
 const selectedTags = [];
 let purchaseFinished = false;
 
-
 const products = [
   {
     id: 0,
@@ -176,39 +175,7 @@ const getCoffeeList = () => {
   let adder = "";
   for (const product of filteredProducts) {
     const index = filteredProducts.indexOf(product);
-    const html = `<span class="coffeeCard">
-    <div class="coffeeProductImageContainer">
-        <img class="coffeeImage" alt=${product.name} src=${product.image} />
-        <div class="coffeeProductImageDesc">
-            <p>
-                ${product.desc}
-            </p>
-        </div>
-    </div>
-    <div class="coffeeDesc">
-        <div class="quantitySelectorContainer">
-            <div class="productType">
-                <button onclick="filteredProducts[${index}].substract()" class="coffeeButton coffeeButtonProductsPage">
-                    <
-                </button>
-            </div>
-            <div id="${product.name} counter" class="itemCounter">
-                ${product.quantity}
-            </div>
-            <div class="productType">
-                <button onclick="filteredProducts[${index}].add()" class="coffeeButton coffeeButtonProductsPage">
-                    >
-                </button>
-            </div>
-        </div>
-        <div style="font-size: 14px;">${product.name.toUpperCase()}</div>
-        <div>$ ${product.price}</div>
-    </div>
-    <div class="productType">
-        <button onclick="filteredProducts[${index}].addToCart()" class="coffeeButton coffeeButtonProductsPage">Add to
-            cart</button>
-    </div>
-</span>`;
+    const html = coffeeCardHtml(product, index);
     adder += html;
   }
   document.getElementById("coffeeProductsContainer").innerHTML = adder;
@@ -225,17 +192,7 @@ const addProducts = (product) => {
 };
 
 const updateCart = () => {
-  let newCart = selectedProducts
-    .map(
-      (e, i) => `<div class='itemInCart'>
-                <div class="itemText">
-                  <div><b>Item:</b> ${e.name} (${e.quantity})</div>
-                  <div><b>Total:</b> $${e.quantity * e.price}</div>
-                </div>
-                <button class="coffeeButton--square" onclick="deleteItemFromCart(${i})"><img class="deleteIcon" src="./assets/images/delete_icon.png" alt="delete icon"></button>
-              </div>`
-    )
-    .join("");
+  let newCart = selectedProducts.map((e, i) => productInCart(e, i)).join("");
   const tag = document.getElementById("cartItems");
   tag.innerHTML = newCart;
 };
@@ -285,18 +242,7 @@ const returnToProducts = () => {
 };
 
 const formatPurchase = () => {
-  const formatted = selectedProducts
-    .map(
-      (e) =>
-        `<div class="purchasedItem"><div>Product: <b>${
-          e.name
-        }</b></div><div>Quantity: <b>${
-          e.quantity
-        }</b></div><div>Full cost of product: <b>$${
-          e.quantity * e.price
-        }</b></div></div><hr class="solid"></hr>`
-    )
-    .join("");
+  const formatted = selectedProducts.map((e) => formatPurchaseHtml(e)).join("");
   const fullPrice = selectedProducts.reduce(
     (acc, a) => acc + a.price * a.quantity,
     0
@@ -309,52 +255,121 @@ const formatPurchase = () => {
 
 const bodyHandler = () => {
   if (purchaseFinished == false) {
-    document.getElementById(
-      "bodyHandler"
-    ).innerHTML = `                <form class="productsForm">
-    <label for="filterSelect"><b>Filter by:</b></label>
-    <select name="order" id="filterSelect" onchange="changeFilter()">
-        <option value="all">Show all</option>
-        <option value="hot">Filter by hot beverages</option>
-        <option value="cold">Filter by cold beverages</option>
-    </select>
-    <label for="orderSelect"><b>Order by:</b></label>
-    <select name="order" id="orderSelect" onchange="orderProducts()">
-        <option value="byDefault">By default</option>
-        <option value="byPriceUp">Price (higher price first)</option>
-        <option value="byPriceDown">Precio (lower price first)</option>
-    </select>
-    <div id="cartItems"></div>
-    <button class="coffeeButton finishProducts" onclick="finishPurchase()">Finish purchase</button>
-</form>
-<article id="coffeeProductsContainer" class="coffeeList">
-</article>`;
+    document.getElementById("bodyHandler").innerHTML = bodyHtml();
     getCoffeeList();
   } else {
     if (selectedProducts.length == 0) {
-      document.getElementById(
-        "bodyHandler"
-      ).innerHTML = `<div class='finishContainer'><div class="finishTitle">Your cart is empty! Go back and order something!</div><div class="buttonRight">
-      <button onclick="returnToProducts()" class="coffeeButton">Return to products</button>
-    </div></div>`;
+      document.getElementById("bodyHandler").innerHTML = emptyCartHtml();
     } else {
       const selectedProductsFormatted = formatPurchase();
-      document.getElementById(
-        "bodyHandler"
-      ).innerHTML = `<div class='finishContainer'>
-          <div class="finishTitle">
-            <h4>Thank you for choosing us! Your purchase was successful!</h4>
-          <div>
-          <div class="itemsInCart">
-            <h5>Tus Productos:</h5>
-            <div class="purchasedProductsList">
-              ${selectedProductsFormatted}
-            </div>
-          </div>
-          <div class="buttonRight">
-            <button onclick="returnToProducts()" class="coffeeButton">Return to products</button>
-          </div>
-        </div>`;
+      document.getElementById("bodyHandler").innerHTML = purchaseFinishedHtml(
+        selectedProductsFormatted
+      );
     }
   }
+};
+
+// HTMLS
+const coffeeCardHtml = (product, index) => {
+  return `<span class="coffeeCard">
+    <div class="coffeeProductImageContainer">
+        <img class="coffeeImage" alt=${product.name} src=${product.image} />
+        <div class="coffeeProductImageDesc">
+            <p>
+                ${product.desc}
+            </p>
+        </div>
+    </div>
+    <div class="coffeeDesc">
+        <div class="quantitySelectorContainer">
+            <div class="productType">
+                <button onclick="filteredProducts[${index}].substract()" class="coffeeButton coffeeButtonProductsPage">
+                    <
+                </button>
+            </div>
+            <div id="${product.name} counter" class="itemCounter">
+                ${product.quantity}
+            </div>
+            <div class="productType">
+                <button onclick="filteredProducts[${index}].add()" class="coffeeButton coffeeButtonProductsPage">
+                    >
+                </button>
+            </div>
+        </div>
+        <div style="font-size: 14px;">${product.name.toUpperCase()}</div>
+        <div>$ ${product.price}</div>
+    </div>
+    <div class="productType">
+        <button onclick="filteredProducts[${index}].addToCart()" class="coffeeButton coffeeButtonProductsPage">Add to
+            cart</button>
+    </div>
+</span>`;
+};
+
+const productInCart = (e, i) => {
+  return `<div class='itemInCart'>
+            <div class="itemText">
+              <div><b>Item:</b> ${e.name} (${e.quantity})</div>
+              <div><b>Total:</b> $${e.quantity * e.price}</div>
+            </div>
+            <button class="coffeeButton--square" onclick="deleteItemFromCart(${i})"><img class="deleteIcon" src="./assets/images/delete_icon.png" alt="delete icon"></button>
+          </div>`;
+};
+
+const bodyHtml = () => {
+  return `<form class="productsForm">
+            <label for="filterSelect"><b>Filter by:</b></label>
+            <select name="order" id="filterSelect" onchange="changeFilter()">
+                <option value="all">Show all</option>
+                <option value="hot">Filter by hot beverages</option>
+                <option value="cold">Filter by cold beverages</option>
+            </select>
+            <label for="orderSelect"><b>Order by:</b></label>
+            <select name="order" id="orderSelect" onchange="orderProducts()">
+                <option value="byDefault">By default</option>
+                <option value="byPriceUp">Price (higher price first)</option>
+                <option value="byPriceDown">Precio (lower price first)</option>
+            </select>
+            <div id="cartItems"></div>
+            <button class="coffeeButton finishProducts" onclick="finishPurchase()">Finish purchase</button>
+          </form>
+          <article id="coffeeProductsContainer" class="coffeeList">
+          </article>`;
+};
+
+const emptyCartHtml = () => {
+  return `<div class='finishContainer'>
+            <div class="finishTitle">Your cart is empty! Go back and order something!</div>
+            <div class="buttonRight">
+              <button onclick="returnToProducts()" class="coffeeButton">
+                Return to products
+              </button>
+            </div>
+          </div>`;
+};
+
+const purchaseFinishedHtml = (selectedProductsFormatted) => {
+  return `<div class='finishContainer'>
+            <div class="finishTitle">
+              <h4>Thank you for choosing us! Your purchase was successful!</h4>
+            <div>
+            <div class="itemsInCart">
+              <h5>Tus Productos:</h5>
+              <div class="purchasedProductsList">
+                ${selectedProductsFormatted}
+              </div>
+            </div>
+            <div class="buttonRight">
+              <button onclick="returnToProducts()" class="coffeeButton">Return to products</button>
+            </div>
+          </div>`;
+};
+
+const formatPurchaseHtml = (e) => {
+  return `<div class="purchasedItem">
+            <div>Product: <b>${e.name}</b></div>
+            <div>Quantity: <b>${e.quantity}</b></div>
+            <div>Full cost of product: <b>$${e.quantity * e.price}</b></div>
+          </div>
+          <hr class="solid"></hr>`;
 };
