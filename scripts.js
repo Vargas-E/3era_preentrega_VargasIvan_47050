@@ -344,20 +344,19 @@ const headerHandler = () => {
   logoutButton.addEventListener("click", () => handleLogout());
   // const cartHistoryButton = document.getElementById("cartHistoryButton");
   // cartHistoryButton.addEventListener("click", () => showCart());
-}
+};
 
 const handleLogout = () => {
-  const newUsers = users.map(e => e.name != loggedUser.name ? e : {...e, currentCart: selectedProducts});
+  const newUsers = users.map((e) =>
+    e.name != loggedUser.name ? e : { ...e, currentCart: selectedProducts }
+  );
   localStorage.setItem("users", JSON.stringify(newUsers));
   purchaseFinished = false;
   loggedUser = null;
   localStorage.removeItem("loggedUser");
   selectedProducts = [];
   handleLogin();
-}
-
-
-
+};
 
 const checkLoginStatus = () => {
   if (!loggedUser) {
@@ -663,11 +662,12 @@ const headerHTML = () => {
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <div style="cursor: pointer; color: blue;"id="logoutButton">Logout</div>
+                        <a class="nav-link" style="cursor: pointer;" id="cartHistoryButton">Previous purchases</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../pages/contact.html">Contact</a>
+                        <a class="nav-link" style="cursor: pointer;"id="logoutButton">Logout</a>
                     </li>
+
                 </ul>
             </div>
           </nav>`;
