@@ -360,13 +360,11 @@ const handleLogout = () => {
 
 const checkLoginStatus = () => {
   if (!loggedUser) {
-    console.log("no hay usuario");
     return false;
   } else {
     if (new Date() - new Date(loggedUser?.lastLoginTs) > 3600000) {
       return false;
     } else {
-      console.log("en tiempo y con usuarios");
       return true;
     }
   }
@@ -447,11 +445,9 @@ const handleRegister = () => {
 
 const validateRegister = (name, age, password, password2) => {
   if (users.find((e) => e.name == name)) {
-    console.log("nombre ya existe");
     return "Name already in use";
   }
   if (password != password2) {
-    console.log("password no coinciden");
     return "Password repeat doesn't match";
   }
   return true;
