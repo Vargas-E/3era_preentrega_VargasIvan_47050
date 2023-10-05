@@ -118,11 +118,37 @@ footer .socialLinkIcon {
 .genericContainer, .productOptionsFormContainer .finishContainer, .genericContainer--fixMargin, .genericContainer--button {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 1.5rem;
   margin: 2rem 0 1rem 0;
   background-color: #d2b48c;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 16px;
+  margin: auto;
+}
+.genericContainer .title, .productOptionsFormContainer .finishContainer .title, .genericContainer--fixMargin .title, .genericContainer--button .title {
+  font-size: 24px;
+  text-align: center;
+}
+.genericContainer .inputContainer, .productOptionsFormContainer .finishContainer .inputContainer, .genericContainer--fixMargin .inputContainer, .genericContainer--button .inputContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.genericContainer .inputContainer .extraMargin, .productOptionsFormContainer .finishContainer .inputContainer .extraMargin, .genericContainer--fixMargin .inputContainer .extraMargin, .genericContainer--button .inputContainer .extraMargin {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.genericContainer .errorMessage, .productOptionsFormContainer .finishContainer .errorMessage, .genericContainer--fixMargin .errorMessage, .genericContainer--button .errorMessage {
+  color: red;
+  text-align: center;
+}
+.genericContainer .signLink, .productOptionsFormContainer .finishContainer .signLink, .genericContainer--fixMargin .signLink, .genericContainer--button .signLink {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 15px;
 }
 
 .genericContainer--button {
@@ -517,11 +543,37 @@ footer .socialLinkIcon {
 .genericContainer, .productOptionsFormContainer .finishContainer, .genericContainer--button, .genericContainer--fixMargin {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 1.5rem;
   margin: 2rem 0 1rem 0;
   background-color: #d2b48c;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 16px;
+  margin: auto;
+}
+.genericContainer .title, .productOptionsFormContainer .finishContainer .title, .genericContainer--button .title, .genericContainer--fixMargin .title {
+  font-size: 24px;
+  text-align: center;
+}
+.genericContainer .inputContainer, .productOptionsFormContainer .finishContainer .inputContainer, .genericContainer--button .inputContainer, .genericContainer--fixMargin .inputContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.genericContainer .inputContainer .extraMargin, .productOptionsFormContainer .finishContainer .inputContainer .extraMargin, .genericContainer--button .inputContainer .extraMargin, .genericContainer--fixMargin .inputContainer .extraMargin {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.genericContainer .errorMessage, .productOptionsFormContainer .finishContainer .errorMessage, .genericContainer--button .errorMessage, .genericContainer--fixMargin .errorMessage {
+  color: red;
+  text-align: center;
+}
+.genericContainer .signLink, .productOptionsFormContainer .finishContainer .signLink, .genericContainer--button .signLink, .genericContainer--fixMargin .signLink {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 15px;
 }
 
 .genericContainer--button {

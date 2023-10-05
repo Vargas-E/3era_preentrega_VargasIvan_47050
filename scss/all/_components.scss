@@ -111,10 +111,36 @@ footer {
 }
 
 .genericContainer {
-  @include flexCenter(column, null, null, 1rem, 2rem 0 1rem 0);
+  @include flexCenter(column, null, null, 1.5rem, 2rem 0 1rem 0);
   background-color: $containerColor;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 16px;
+  margin: auto;
+  .title {
+    font-size: 24px;
+    text-align: center;
+  }
+  .inputContainer {
+    display:flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    .extraMargin {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+  .errorMessage {
+    color: red;
+    text-align: center;
+  }
+  .signLink {
+    color: blue; 
+    cursor: pointer;
+    text-decoration:underline;
+    font-size: 15px;
+  }
 }
 
 .genericContainer--button {

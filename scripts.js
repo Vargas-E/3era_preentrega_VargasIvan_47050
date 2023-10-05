@@ -1,7 +1,20 @@
-let selectedProducts = [];
+
+class User {
+  constructor(user) {
+    this.name = user.name;
+    this.password = user.password;
+    this.purchaseHistory = user.purchaseHistory;
+    this.currentCart = user.currentCart;
+    this.age = user.age;
+    this.lastLoginTs = user.lastLoginTs;
+  }
+}
+
 const selectedTags = [];
 let purchaseFinished = false;
-let over21;
+let loggedUser = !!JSON.parse(localStorage.getItem("loggedUser")) ? new User(JSON.parse(localStorage.getItem("loggedUser"))) : null
+let users = !!JSON.parse(localStorage.getItem("users")) ? JSON.parse(localStorage.getItem("users")).map(e => new User(e)) : [];
+let selectedProducts = []
 
 const products = [
   {
@@ -104,7 +117,7 @@ const products = [
     quantity: 1,
   },
   {
-    id: 10,
+    id: 11,
     name: "mocha frapuccino",
     image: "./assets/images/products/mocha_frapuccino.webp",
     price: 750,
@@ -113,7 +126,7 @@ const products = [
     quantity: 1,
   },
   {
-    id: 11,
+    id: 12,
     name: "strawberry frapuccino",
     image: "./assets/images/products/strawberry_frapuccion.webp",
     price: 750,
@@ -122,7 +135,7 @@ const products = [
     quantity: 1,
   },
   {
-    id: 12,
+    id: 13,
     name: "anatolia coffee",
     image: "./assets/images/products/anatolia_coffee.webp",
     price: 750,
@@ -131,7 +144,7 @@ const products = [
     quantity: 1,
   },
   {
-    id: 13,
+    id: 14,
     name: "iced irish coffee",
     image: "./assets/images/products/iced_irish.webp",
     price: 750,
@@ -140,6 +153,7 @@ const products = [
     quantity: 1,
   },
 ];
+
 
 class Product {
   constructor(product) {
@@ -189,7 +203,7 @@ class Product {
 }
 
 let filteredProducts =
-  over21 == true
+  loggedUser?.age > 21
     ? products.map((e) => new Product(e))
     : products.filter((e) => !e.tags.includes("alcoholic"));
 
@@ -201,6 +215,19 @@ const getCoffeeList = () => {
     adder += html;
   }
   document.getElementById("coffeeProductsContainer").innerHTML = adder;
+  for (const product of filteredProducts) {
+    const index = filteredProducts.indexOf(product);
+    const substract = document.getElementById(product.id + "substract");
+    const add = document.getElementById(product.id + "add");
+    const addToCart = document.getElementById(product.id + "addToCart");
+    substract.addEventListener("click", () =>
+      filteredProducts[index].substract()
+    );
+    add.addEventListener("click", () => filteredProducts[index].add());
+    addToCart.addEventListener("click", () =>
+      filteredProducts[index].addToCart()
+    );
+  }
 };
 
 const addProducts = (product) => {
@@ -217,10 +244,16 @@ const updateCart = () => {
   let newCart = selectedProducts.map((e, i) => productInCart(e, i)).join("");
   const tag = document.getElementById("cartItems");
   tag.innerHTML = newCart;
+  for (const productInCart of selectedProducts) {
+    const deleteButton = document.getElementById(productInCart.id);
+    deleteButton.addEventListener("click", () =>
+      deleteItemFromCart(productInCart.id)
+    );
+  }
 };
 
-const deleteItemFromCart = (index) => {
-  selectedProducts = selectedProducts.filter((e, i) => i != index);
+const deleteItemFromCart = (id) => {
+  selectedProducts = selectedProducts.filter((e, i) => e.id != id);
   updateCart();
 };
 
@@ -254,6 +287,10 @@ const orderProducts = () => {
 
 const finishPurchase = () => {
   purchaseFinished = true;
+  loggedUser = {...loggedUser, purchaseHistory: [...loggedUser.purchaseHistory, selectedProducts], currentCart: []}
+  users = users.map(e => e.name != loggedUser.name ? e : loggedUser)
+  localStorage.setItem("users", JSON.stringify(users));
+  localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
   bodyHandler();
 };
 
@@ -276,56 +313,125 @@ const formatPurchase = () => {
 };
 
 const bodyHandler = () => {
-  if (purchaseFinished == false) {
-    document.getElementById("bodyHandler").innerHTML = bodyHtml();
-    getCoffeeList();
-  } else {
-    if (selectedProducts.length == 0) {
-      document.getElementById("bodyHandler").innerHTML = emptyCartHtml();
+    if (purchaseFinished == false) {
+      document.getElementById("bodyHandler").innerHTML = bodyHtml();
+      const finishPurchaseButton = document.getElementById("finishPurchase");
+      finishPurchaseButton.addEventListener("click", () => finishPurchase());
+      getCoffeeList();
     } else {
-      const selectedProductsFormatted = formatPurchase();
-      document.getElementById("bodyHandler").innerHTML = purchaseFinishedHtml(
-        selectedProductsFormatted
+      if (selectedProducts.length == 0) {
+        document.getElementById("bodyHandler").innerHTML = emptyCartHtml();
+      } else {
+        const selectedProductsFormatted = formatPurchase();
+        document.getElementById("bodyHandler").innerHTML = purchaseFinishedHtml(
+          selectedProductsFormatted
+        );
+      }
+      const goBackToProductsButton =
+        document.getElementById("returnToProducts");
+      goBackToProductsButton.addEventListener("click", () =>
+        returnToProducts()
       );
     }
+};
+
+const checkLoginStatus = () => {
+  if (!loggedUser) {
+    console.log("no hay usuario")
+    return false;
+  } else {
+    if (new Date() - new Date(loggedUser?.lastLoginTs) > 3600000) {
+      return false;
+    } else {
+      console.log("en tiempo y con usuarios")
+      return true;
+    }
   }
 };
 
-const checkAge = () => {
-  document.getElementById("mainHandler").innnerHTML = promptBody()
-  const age = prompt(
-    "You need to be over 21 years old to buy some of our products. Please tell us your age"
-  );
-  const numbers = "0123456789";
-  if (age) {
-    if (![...age].every((e) => numbers.includes(e))) {
-      alert("Age input is wrong. Please try again.");
-      checkAge();
-    } else {
-      if (parseInt(age) > 21) {
-        over21 = true;
-      } else {
-        over21 = false;
-      }
-      document.getElementById("mainHandler").innerHTML = mainBody()
-      filteredProducts = filteredProductsHandler();
-      bodyHandler();
-    }
+const handleLogin = () => {
+  const check = checkLoginStatus();
+  document.getElementById("mainHandler").innerHTML = mainBody();
+  filteredProducts = filteredProductsHandler();
+  if (check) {
+    localStorage.setItem("loggedUser", JSON.stringify({...loggedUser, lastLoginTs: new Date()}));
+    bodyHandler();
+    selectedProducts = !!loggedUser?.currentCart ? loggedUser?.currentCart : [];
+    updateCart();
   } else {
-    alert("Age input is wrong. Please try again.");
-    checkAge();
+    document.getElementById("bodyHandler").innerHTML = login();
+    const loginForm = document.getElementById("loginForm");
+    console.log("loginForm:", loginForm);
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const user = users.find(
+        (a) => a.name == e.target[0].value && a.password == e.target[1].value
+      );
+      if (user) {
+        loggedUser = new User({ ...user, lastLoginTs: new Date() });
+        handleLogin();
+      } else {
+        const errorTag =  document.getElementById("loginError")
+        errorTag.innerHTML = `<div>Wrong password or username</div>`
+        setTimeout(() => {  errorTag.innerHTML= ""; }, 2000);
+      }
+    });
+    const registerButton = document.getElementById("registerButton");
+    registerButton.addEventListener("click", () => handleRegister());
   }
 };
+
+const handleRegister = () => {
+  document.getElementById("bodyHandler").innerHTML = register();
+  const registerForm = document.getElementById("registerForm");
+  const loginButton = document.getElementById("loginButton");
+  loginButton.addEventListener("click", () => handleLogin());
+  registerForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const validate = validateRegister(
+      e.target[0].value,
+      e.target[1].value,
+      e.target[2].value
+    );
+    if (validate) {
+      loggedUser = new User({
+        name: e.target[0].value,
+        password: e.target[1].value,
+        purchaseHistory: [],
+        age: e.target[2].value,
+        currentCart: [],
+        lastLoginTs: new Date(),
+      });
+      users.push(loggedUser);
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+      handleLogin();
+      // aca agregar localStorage para users
+    } else {
+      const errorTag =  document.getElementById("registerError")
+      errorTag.innerHTML = `<div>Name already in use</div>`
+      setTimeout(() => {  errorTag.innerHTML= ""; }, 2000);
+      // poner error de mal validado
+    }
+  });
+};
+
+const validateRegister = (name, password, age) => {
+  if (users.find(e => e.name == name)){
+    console.log("nombre ya existe")
+    return false;
+  }
+  return true;
+}
+
 
 const filteredProductsHandler = () => {
-  return over21 == true
+  return loggedUser?.age > 21
     ? products.map((e) => new Product(e))
     : products
         .filter((e) => !e.tags.includes("alcoholic"))
         .map((a) => new Product(a));
 };
-
-
 
 // HTMLS
 const coffeeCardHtml = (product, index) => {
@@ -341,7 +447,9 @@ const coffeeCardHtml = (product, index) => {
     <div class="coffeeDesc">
         <div class="quantitySelectorContainer">
             <div class="productType">
-                <button onclick="filteredProducts[${index}].substract()" class="coffeeButton coffeeButtonProductsPage">
+                <button id=${
+                  product.id + "substract"
+                }  class="coffeeButton coffeeButtonProductsPage">
                     <
                 </button>
             </div>
@@ -349,7 +457,9 @@ const coffeeCardHtml = (product, index) => {
                 ${product.quantity}
             </div>
             <div class="productType">
-                <button onclick="filteredProducts[${index}].add()" class="coffeeButton coffeeButtonProductsPage">
+                <button id=${
+                  product.id + "add"
+                }  class="coffeeButton coffeeButtonProductsPage">
                     >
                 </button>
             </div>
@@ -358,7 +468,9 @@ const coffeeCardHtml = (product, index) => {
         <div>$ ${product.price}</div>
     </div>
     <div class="productType">
-        <button onclick="filteredProducts[${index}].addToCart()" class="coffeeButton coffeeButtonProductsPage">Add to
+        <button id=${
+          product.id + "addToCart"
+        } class="coffeeButton coffeeButtonProductsPage">Add to
             cart</button>
     </div>
 </span>`;
@@ -370,7 +482,9 @@ const productInCart = (e, i) => {
               <div><b>Item:</b> ${e.name} (${e.quantity})</div>
               <div><b>Total:</b> $${e.quantity * e.price}</div>
             </div>
-            <button class="coffeeButton--square" onclick="deleteItemFromCart(${i})"><img class="deleteIcon" src="./assets/images/delete_icon.png" alt="delete icon"></button>
+            <button id=${
+              e.id
+            } class="coffeeButton--square"><img class="deleteIcon" src="./assets/images/delete_icon.png" alt="delete icon"></button>
           </div>`;
 };
 
@@ -381,8 +495,16 @@ const bodyHtml = () => {
                 <option value="all">Show all</option>
                 <option value="hot">Filter by hot beverages</option>
                 <option value="cold">Filter by cold beverages</option>
-                ${over21 == true ? `<option value="alcoholic">Filter by alcohol beverages</option>` : ""}
-                ${over21 == true ? `<option value="non_alcoholic">Filter by non alcohol beverages</option>` : ""}
+                ${
+                  loggedUser?.age > 21
+                    ? `<option value="alcoholic">Filter by alcohol beverages</option>`
+                    : ""
+                }
+                ${
+                  loggedUser?.age < 21
+                    ? `<option value="non_alcoholic">Filter by non alcohol beverages</option>`
+                    : ""
+                }
             </select>
             <label for="orderSelect"><b>Order by:</b></label>
             <select name="order" id="orderSelect" onchange="orderProducts()">
@@ -391,7 +513,7 @@ const bodyHtml = () => {
                 <option value="byPriceDown">Precio (lower price first)</option>
             </select>
             <div id="cartItems"></div>
-            <button class="coffeeButton finishProducts" onclick="finishPurchase()">Finish purchase</button>
+            <button id="finishPurchase" class="coffeeButton finishProducts">Finish purchase</button>
           </form>
           <article id="coffeeProductsContainer" class="coffeeList">
           </article>`;
@@ -401,7 +523,7 @@ const emptyCartHtml = () => {
   return `<div class='finishContainer'>
             <div class="finishTitle">Your cart is empty! Go back and order something!</div>
             <div class="buttonRight">
-              <button onclick="returnToProducts()" class="coffeeButton">
+              <button id="returnToProducts" class="coffeeButton">
                 Return to products
               </button>
             </div>
@@ -420,7 +542,7 @@ const purchaseFinishedHtml = (selectedProductsFormatted) => {
               </div>
             </div>
             <div class="buttonRight">
-              <button onclick="returnToProducts()" class="coffeeButton">Return to products</button>
+              <button id="returnToProducts" class="coffeeButton">Return to products</button>
             </div>
           </div>`;
 };
@@ -435,8 +557,8 @@ const formatPurchaseHtml = (e) => {
 };
 
 const promptBody = () => {
-  return `<div></div>`
-}
+  return `<div></div>`;
+};
 
 const mainBody = () => {
   return `<section class="primaryImageContainer">
@@ -455,10 +577,54 @@ const mainBody = () => {
                 ^
                 <span class="tooltipText">GO TO TOP</span>
             </div>
-          </a>`
-}
+          </a>`;
+};
 
+const login = () => {
+  return `<section class="genericContainer ">
+  <div class="title">Login</div>
 
-while (over21 == undefined) {
-  checkAge();
-}
+  <form class="inputContainer" id="loginForm">
+    <label for="fname">Username:</label>
+    <input type="text" id="fname" name="fname" />
+    <label for="lname">Password:</label>
+    <input type="text" id="lname" name="lname" />
+    <input class="coffeeButton extraMargin" type="submit" />
+  </form>
+  <div class="errorMessage" id="loginError"></div>
+  <div class="signLink" id="registerButton" style="color: blue; cursor: pointer">Dont have an account? Sign up here</div>
+</section>;`;
+};
+
+const register = () => {
+  var list = [];
+  for (var i = 12; i <= 100; i++) {
+    list.push(i);
+  }
+  return `<section class="genericContainer">
+  <div class="title">Register</div>
+  <form class="inputContainer" id="registerForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" />
+    <label for="password">Password:</label>
+    <input type="text" id="password" name="password" />
+    <label for="age">Age:</label>
+    <select name="age" id="ageSelect" >
+    ${list.map((e) => `<option value=${e}>${e}</option>`).join("")}
+</select>
+    <input class="coffeeButton extraMargin"type="submit" />
+    <div class="errorMessage" id="registerError"></div>
+  </form>
+  <div class="signLink" id="loginButton" style="color: blue; cursor: pointer">Already have an account? Sign in here</div>
+</section>;`;
+};
+
+window.onload = () => handleLogin();
+
+window.addEventListener("beforeunload", () => {
+  if (selectedProducts.length > 0) {
+    loggedUser = {...loggedUser, currentCart: selectedProducts}
+    localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+    localStorage.setItem("users", JSON.stringify(users.map(e => e.name != loggedUser.name ? e : loggedUser)));
+  }
+});
