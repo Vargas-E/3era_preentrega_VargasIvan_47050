@@ -355,7 +355,6 @@ const handleLogout = () => {
   selectedProducts = [];
   handleLogin();
   document.getElementById("headerHandler").innerHTML = "";
-
 };
 
 const checkLoginStatus = () => {
