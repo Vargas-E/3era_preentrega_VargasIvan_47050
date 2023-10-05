@@ -1,4 +1,3 @@
-
 class User {
   constructor(user) {
     this.name = user.name;
@@ -12,9 +11,13 @@ class User {
 
 const selectedTags = [];
 let purchaseFinished = false;
-let loggedUser = !!JSON.parse(localStorage.getItem("loggedUser")) ? new User(JSON.parse(localStorage.getItem("loggedUser"))) : null
-let users = !!JSON.parse(localStorage.getItem("users")) ? JSON.parse(localStorage.getItem("users")).map(e => new User(e)) : [];
-let selectedProducts = []
+let loggedUser = !!JSON.parse(localStorage.getItem("loggedUser"))
+  ? new User(JSON.parse(localStorage.getItem("loggedUser")))
+  : null;
+let users = !!JSON.parse(localStorage.getItem("users"))
+  ? JSON.parse(localStorage.getItem("users")).map((e) => new User(e))
+  : [];
+let selectedProducts = [];
 
 const products = [
   {
@@ -154,7 +157,6 @@ const products = [
   },
 ];
 
-
 class Product {
   constructor(product) {
     this.id = product.id;
@@ -287,8 +289,12 @@ const orderProducts = () => {
 
 const finishPurchase = () => {
   purchaseFinished = true;
-  loggedUser = {...loggedUser, purchaseHistory: [...loggedUser.purchaseHistory, selectedProducts], currentCart: []}
-  users = users.map(e => e.name != loggedUser.name ? e : loggedUser)
+  loggedUser = {
+    ...loggedUser,
+    purchaseHistory: [...loggedUser.purchaseHistory, selectedProducts],
+    currentCart: [],
+  };
+  users = users.map((e) => (e.name != loggedUser.name ? e : loggedUser));
   localStorage.setItem("users", JSON.stringify(users));
   localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
   bodyHandler();
@@ -313,37 +319,55 @@ const formatPurchase = () => {
 };
 
 const bodyHandler = () => {
-    if (purchaseFinished == false) {
-      document.getElementById("bodyHandler").innerHTML = bodyHtml();
-      const finishPurchaseButton = document.getElementById("finishPurchase");
-      finishPurchaseButton.addEventListener("click", () => finishPurchase());
-      getCoffeeList();
+  if (purchaseFinished == false) {
+    document.getElementById("bodyHandler").innerHTML = bodyHtml();
+    const finishPurchaseButton = document.getElementById("finishPurchase");
+    finishPurchaseButton.addEventListener("click", () => finishPurchase());
+    getCoffeeList();
+  } else {
+    if (selectedProducts.length == 0) {
+      document.getElementById("bodyHandler").innerHTML = emptyCartHtml();
     } else {
-      if (selectedProducts.length == 0) {
-        document.getElementById("bodyHandler").innerHTML = emptyCartHtml();
-      } else {
-        const selectedProductsFormatted = formatPurchase();
-        document.getElementById("bodyHandler").innerHTML = purchaseFinishedHtml(
-          selectedProductsFormatted
-        );
-      }
-      const goBackToProductsButton =
-        document.getElementById("returnToProducts");
-      goBackToProductsButton.addEventListener("click", () =>
-        returnToProducts()
+      const selectedProductsFormatted = formatPurchase();
+      document.getElementById("bodyHandler").innerHTML = purchaseFinishedHtml(
+        selectedProductsFormatted
       );
     }
+    const goBackToProductsButton = document.getElementById("returnToProducts");
+    goBackToProductsButton.addEventListener("click", () => returnToProducts());
+  }
 };
+
+const headerHandler = () => {
+  document.getElementById("headerHandler").innerHTML = headerHTML();
+  const logoutButton = document.getElementById("logoutButton");
+  logoutButton.addEventListener("click", () => handleLogout());
+  // const cartHistoryButton = document.getElementById("cartHistoryButton");
+  // cartHistoryButton.addEventListener("click", () => showCart());
+}
+
+const handleLogout = () => {
+  const newUsers = users.map(e => e.name != loggedUser.name ? e : {...e, currentCart: selectedProducts});
+  localStorage.setItem("users", JSON.stringify(newUsers));
+  purchaseFinished = false;
+  loggedUser = null;
+  localStorage.removeItem("loggedUser");
+  selectedProducts = [];
+  handleLogin();
+}
+
+
+
 
 const checkLoginStatus = () => {
   if (!loggedUser) {
-    console.log("no hay usuario")
+    console.log("no hay usuario");
     return false;
   } else {
     if (new Date() - new Date(loggedUser?.lastLoginTs) > 3600000) {
       return false;
     } else {
-      console.log("en tiempo y con usuarios")
+      console.log("en tiempo y con usuarios");
       return true;
     }
   }
@@ -354,14 +378,17 @@ const handleLogin = () => {
   document.getElementById("mainHandler").innerHTML = mainBody();
   filteredProducts = filteredProductsHandler();
   if (check) {
-    localStorage.setItem("loggedUser", JSON.stringify({...loggedUser, lastLoginTs: new Date()}));
+    localStorage.setItem(
+      "loggedUser",
+      JSON.stringify({ ...loggedUser, lastLoginTs: new Date() })
+    );
+    headerHandler();
     bodyHandler();
     selectedProducts = !!loggedUser?.currentCart ? loggedUser?.currentCart : [];
     updateCart();
   } else {
     document.getElementById("bodyHandler").innerHTML = login();
     const loginForm = document.getElementById("loginForm");
-    console.log("loginForm:", loginForm);
     loginForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const user = users.find(
@@ -371,9 +398,11 @@ const handleLogin = () => {
         loggedUser = new User({ ...user, lastLoginTs: new Date() });
         handleLogin();
       } else {
-        const errorTag =  document.getElementById("loginError")
-        errorTag.innerHTML = `<div>Wrong password or username</div>`
-        setTimeout(() => {  errorTag.innerHTML= ""; }, 2000);
+        const errorTag = document.getElementById("loginError");
+        errorTag.innerHTML = `<div>Wrong password or username</div>`;
+        setTimeout(() => {
+          errorTag.innerHTML = "";
+        }, 2000);
       }
     });
     const registerButton = document.getElementById("registerButton");
@@ -391,14 +420,15 @@ const handleRegister = () => {
     const validate = validateRegister(
       e.target[0].value,
       e.target[1].value,
-      e.target[2].value
+      e.target[2].value,
+      e.target[3].value
     );
-    if (validate) {
+    if (validate == true) {
       loggedUser = new User({
         name: e.target[0].value,
-        password: e.target[1].value,
+        password: e.target[2].value,
         purchaseHistory: [],
-        age: e.target[2].value,
+        age: e.target[1].value,
         currentCart: [],
         lastLoginTs: new Date(),
       });
@@ -406,24 +436,27 @@ const handleRegister = () => {
       localStorage.setItem("users", JSON.stringify(users));
       localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
       handleLogin();
-      // aca agregar localStorage para users
     } else {
-      const errorTag =  document.getElementById("registerError")
-      errorTag.innerHTML = `<div>Name already in use</div>`
-      setTimeout(() => {  errorTag.innerHTML= ""; }, 2000);
-      // poner error de mal validado
+      const errorTag = document.getElementById("registerError");
+      errorTag.innerHTML = `<div>${validate}</div>`;
+      setTimeout(() => {
+        errorTag.innerHTML = "";
+      }, 2000);
     }
   });
 };
 
-const validateRegister = (name, password, age) => {
-  if (users.find(e => e.name == name)){
-    console.log("nombre ya existe")
-    return false;
+const validateRegister = (name, age, password, password2) => {
+  if (users.find((e) => e.name == name)) {
+    console.log("nombre ya existe");
+    return "Name already in use";
+  }
+  if (password != password2) {
+    console.log("password no coinciden");
+    return "Password repeat doesn't match";
   }
   return true;
-}
-
+};
 
 const filteredProductsHandler = () => {
   return loggedUser?.age > 21
@@ -583,7 +616,6 @@ const mainBody = () => {
 const login = () => {
   return `<section class="genericContainer ">
   <div class="title">Login</div>
-
   <form class="inputContainer" id="loginForm">
     <label for="fname">Username:</label>
     <input type="text" id="fname" name="fname" />
@@ -606,12 +638,15 @@ const register = () => {
   <form class="inputContainer" id="registerForm">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" />
-    <label for="password">Password:</label>
-    <input type="text" id="password" name="password" />
     <label for="age">Age:</label>
+
     <select name="age" id="ageSelect" >
     ${list.map((e) => `<option value=${e}>${e}</option>`).join("")}
-</select>
+    </select>
+    <label for="password">Password:</label>
+    <input type="text" id="password" name="password" />
+    <label for="password2">Repeat password:</label>
+    <input type="text" id="password2" name="password2" />
     <input class="coffeeButton extraMargin"type="submit" />
     <div class="errorMessage" id="registerError"></div>
   </form>
@@ -619,12 +654,36 @@ const register = () => {
 </section>;`;
 };
 
+const headerHTML = () => {
+  return `<nav class="navbar navbar-dark navbar-expand-md navBar">
+            <a href="../index.html"><img class="logo" src="./assets/images/coffee_logo.webp"></a>
+            <button class="navbar-toggler sand" data-bs-toggle="collapse" data-bs-target="#navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <div style="cursor: pointer; color: blue;"id="logoutButton">Logout</div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+          </nav>`;
+};
+
 window.onload = () => handleLogin();
 
 window.addEventListener("beforeunload", () => {
   if (selectedProducts.length > 0) {
-    loggedUser = {...loggedUser, currentCart: selectedProducts}
+    loggedUser = { ...loggedUser, currentCart: selectedProducts };
     localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
-    localStorage.setItem("users", JSON.stringify(users.map(e => e.name != loggedUser.name ? e : loggedUser)));
+    localStorage.setItem(
+      "users",
+      JSON.stringify(
+        users.map((e) => (e.name != loggedUser.name ? e : loggedUser))
+      )
+    );
   }
 });
