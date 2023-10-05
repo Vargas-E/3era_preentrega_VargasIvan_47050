@@ -114,6 +114,9 @@ footer .socialLinkIcon {
 .navBar .nav-link.disabled {
   color: #bd1d15;
 }
+.navBar .logout {
+  margin-right: 1rem;
+}
 
 .genericContainer, .productOptionsFormContainer .finishContainer, .genericContainer--fixMargin, .genericContainer--button {
   display: flex;
@@ -538,6 +541,9 @@ footer .socialLinkIcon {
 }
 .navBar .nav-link.disabled {
   color: #bd1d15;
+}
+.navBar .logout {
+  margin-right: 1rem;
 }
 
 .genericContainer, .productOptionsFormContainer .finishContainer, .genericContainer--button, .genericContainer--fixMargin {

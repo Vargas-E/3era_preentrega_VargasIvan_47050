@@ -342,8 +342,6 @@ const headerHandler = () => {
   document.getElementById("headerHandler").innerHTML = headerHTML();
   const logoutButton = document.getElementById("logoutButton");
   logoutButton.addEventListener("click", () => handleLogout());
-  // const cartHistoryButton = document.getElementById("cartHistoryButton");
-  // cartHistoryButton.addEventListener("click", () => showCart());
 };
 
 const handleLogout = () => {
@@ -356,6 +354,8 @@ const handleLogout = () => {
   localStorage.removeItem("loggedUser");
   selectedProducts = [];
   handleLogin();
+  document.getElementById("headerHandler").innerHTML = "";
+
 };
 
 const checkLoginStatus = () => {
@@ -662,12 +662,8 @@ const headerHTML = () => {
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" style="cursor: pointer;" id="cartHistoryButton">Previous purchases</a>
+                        <a class="nav-link logout" style="cursor: pointer;"id="logoutButton">Logout</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="cursor: pointer;"id="logoutButton">Logout</a>
-                    </li>
-
                 </ul>
             </div>
           </nav>`;
