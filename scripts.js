@@ -190,7 +190,6 @@ const finishPurchase = () => {
 };
 
 const returnToProducts = () => {
-  console.log("entre acaa!!")
   purchaseFinished = false;
   selectedProducts = [];
   window.scrollTo(0, 0);
@@ -229,11 +228,8 @@ const bodyHandler = () => {
       "returnToProductsHistory"
     );
     goBackToProductsButton.addEventListener("click", () => {
-      console.log(1)
       historyPage = false;
-      console.log("purchaseFinished:", purchaseFinished);
       if (purchaseFinished == true) {
-        console.log("entre aca!!")
         purchaseFinished = false;
         selectedProducts = [];
       }
