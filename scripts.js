@@ -14,148 +14,16 @@ let purchaseFinished = false;
 let loggedUser = !!JSON.parse(localStorage.getItem("loggedUser"))
   ? new User(JSON.parse(localStorage.getItem("loggedUser")))
   : null;
+
 let users = !!JSON.parse(localStorage.getItem("users"))
   ? JSON.parse(localStorage.getItem("users")).map((e) => new User(e))
   : [];
+
 let selectedProducts = [];
 
-const products = [
-  {
-    id: 0,
-    name: "americano",
-    image: "./assets/images/products/americano.webp",
-    price: 400,
-    tags: ["hot", "high_caffeine", "non_alcoholic"],
-    desc: "This brew is becoming a favourite amongst coffee connoisseurs looking for a bold, strong cup",
-    quantity: 1,
-  },
-  {
-    id: 1,
-    name: "cortado",
-    image: "./assets/images/products/cortado.webp",
-    price: 400,
-    tags: ["hot", "high_caffeine", "non_alcoholic"],
-    desc: "Cortado coffee is made with lightly steamed milk, no froth or foam. The steamed milk on top reduces the acidity of the coffee and creates a micro-foam which doesn’t separate from the espresso, giving it a strong and rich flavour.",
-    quantity: 1,
-  },
-  {
-    id: 2,
-    name: "cafe au lait",
-    image: "./assets/images/products/cafe_au_lait.webp",
-    price: 450,
-    tags: ["hot", "high_caffeine", "non_alcoholic"],
-    desc: "The Café au Lait is made using brewed coffee and steamed milk, in a typical ratio of one part coffee to one part steamed milk",
-    quantity: 1,
-  },
-  {
-    id: 3,
-    name: "drip coffee",
-    image: "./assets/images/products/drip_coffee.webp",
-    price: 500,
-    tags: ["hot", "high_caffeine", "non_alcoholic"],
-    desc: "Drip coffee is clean-bodied with a rounder, more simplistic flavour profile. It’s often praised due to its mellow and less intense flavour as it’s less concentrated than espresso.",
-    quantity: 1,
-  },
-  {
-    id: 4,
-    name: "cold brew",
-    image: "./assets/images/products/cold_brew.webp",
-    price: 500,
-    tags: ["cold", "high_caffeine", "non_alcoholic"],
-    desc: "Cold brew coffee is made by slowly steeping coarsely ground coffee beans in room temperature water for at least six hours",
-    quantity: 1,
-  },
-  {
-    id: 5,
-    name: "decaf",
-    image: "./assets/images/products/decaf.webp",
-    price: 450,
-    tags: ["hot", "no_caffeine", "non_alcoholic"],
-    desc: "Decaf coffee is made from regular coffee beans that go through a process to remove the majority of the caffeine.",
-    quantity: 1,
-  },
-  {
-    id: 6,
-    name: "flat white",
-    image: "./assets/images/products/flat_white.webp",
-    price: 500,
-    tags: ["hot", "no_caffeine", "non_alcoholic"],
-    desc: "A flat white is a blend of micro-foamed milk poured over a single or double shot of espresso. This microfoam is steamed milk infused with air, to create a smooth and velvety texture and creamy taste.",
-    quantity: 1,
-  },
-  {
-    id: 7,
-    name: "irish coffee",
-    image: "./assets/images/products/irish.webp",
-    price: 700,
-    tags: ["hot", "no_caffeine", "alcoholic"],
-    desc: "Irish coffee has four main ingredients: coffee, Irish whiskey, sugar and cream.",
-    quantity: 1,
-  },
-  {
-    id: 8,
-    name: "macchiato",
-    image: "./assets/images/products/macchiato.webp",
-    price: 650,
-    tags: ["cold", "no_caffeine", "non_alcoholic"],
-    desc: "The macchiato is an espresso coffee drink, topped with a small amount of foamed or steamed milk to allow the taste of the espresso to still shine through.",
-    quantity: 1,
-  },
-  {
-    id: 9,
-    name: "instant coffee",
-    image: "./assets/images/products/instant_coffee.webp",
-    price: 250,
-    tags: ["hot", "no_caffeine", "non_alcoholic"],
-    desc: "Instant coffee is the dehydrated version of our favourite drink, readily available with the same great taste. Not to mention, it is quick and easy to make. In a rush? This is what you want.",
-    quantity: 1,
-  },
-  {
-    id: 10,
-    name: "frapuccino",
-    image: "./assets/images/products/frapuccino.webp",
-    price: 750,
-    tags: ["cold", "no_caffeine", "non_alcoholic"],
-    desc: "Frapuccino based on coffee. Sweet and creamy combination of coffee, milk and ice served cold.",
-    quantity: 1,
-  },
-  {
-    id: 11,
-    name: "mocha frapuccino",
-    image: "./assets/images/products/mocha_frapuccino.webp",
-    price: 750,
-    tags: ["cold", "no_caffeine", "non_alcoholic"],
-    desc: "coffee based frapuccino. Delicious mixture of coffee, milk and chocolate, blended with ice, with a whipped cream and mocha syrup finish.",
-    quantity: 1,
-  },
-  {
-    id: 12,
-    name: "strawberry frapuccino",
-    image: "./assets/images/products/strawberry_frapuccion.webp",
-    price: 750,
-    tags: ["cold", "no_caffeine", "non_alcoholic"],
-    desc: "Strawberry based frapuccino. Delicious mixture of strawberries and milk , blended with ice, with a whipped cream and strawberry syrup finish.",
-    quantity: 1,
-  },
-  {
-    id: 13,
-    name: "anatolia coffee",
-    image: "./assets/images/products/anatolia_coffee.webp",
-    price: 750,
-    tags: ["hot", "alcoholic"],
-    desc: "Cognac and expresso,topped with whipped cream and cinnamon syrup",
-    quantity: 1,
-  },
-  {
-    id: 14,
-    name: "iced irish coffee",
-    image: "./assets/images/products/iced_irish.webp",
-    price: 750,
-    tags: ["cold", "alcoholic"],
-    desc: "Whiskey and expresso shaked and server cold. Perfect for a hot day after work.",
-    quantity: 1,
-  },
-];
+let products;
+
+let historyPage = false;
 
 class Product {
   constructor(product) {
@@ -204,10 +72,7 @@ class Product {
   }
 }
 
-let filteredProducts =
-  loggedUser?.age > 21
-    ? products.map((e) => new Product(e))
-    : products.filter((e) => !e.tags.includes("alcoholic"));
+let filteredProducts;
 
 const getCoffeeList = () => {
   let adder = "";
@@ -226,9 +91,17 @@ const getCoffeeList = () => {
       filteredProducts[index].substract()
     );
     add.addEventListener("click", () => filteredProducts[index].add());
-    addToCart.addEventListener("click", () =>
-      filteredProducts[index].addToCart()
-    );
+    addToCart.addEventListener("click", () => {
+      filteredProducts[index].addToCart();
+      Toastify({
+        text: "Product added to cart!",
+        duration: 1500,
+        gravity: "bottom",
+        style: {
+          background: "#1e1e1e",
+        },
+      }).showToast();
+    });
   }
 };
 
@@ -288,16 +161,31 @@ const orderProducts = () => {
 };
 
 const finishPurchase = () => {
-  purchaseFinished = true;
-  loggedUser = {
-    ...loggedUser,
-    purchaseHistory: [...loggedUser.purchaseHistory, selectedProducts],
-    currentCart: [],
-  };
-  users = users.map((e) => (e.name != loggedUser.name ? e : loggedUser));
-  localStorage.setItem("users", JSON.stringify(users));
-  localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
-  bodyHandler();
+  Swal.fire({
+    title: "This will finish your purchase!",
+    text: "Press finish to end your purchase",
+    showCancelButton: true,
+    confirmButtonColor: "#1e1e1e",
+    cancelButtonColor: "#1e1e1e",
+    confirmButtonText: "Yes, I'm done!",
+    background: "#d2b48c",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      purchaseFinished = true;
+      loggedUser = {
+        ...loggedUser,
+        purchaseHistory: [
+          ...loggedUser.purchaseHistory,
+          { dateOfPurchase: new Date(), products: selectedProducts },
+        ],
+        currentCart: [],
+      };
+      users = users.map((e) => (e.name != loggedUser.name ? e : loggedUser));
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+      bodyHandler();
+    }
+  });
 };
 
 const returnToProducts = () => {
@@ -318,23 +206,56 @@ const formatPurchase = () => {
   );
 };
 
+const formatPurchasePrevious = (b) => {
+  const formatted = b.map((e) => formatPurchaseHtml(e)).join("");
+  const fullPrice = b.reduce((acc, a) => acc + a.price * a.quantity, 0);
+  return (
+    formatted +
+    `<div class="purchasedItem"><b>Full cost of purchase: $${fullPrice}</b></div>`
+  );
+};
+
 const bodyHandler = () => {
-  if (purchaseFinished == false) {
-    document.getElementById("bodyHandler").innerHTML = bodyHtml();
-    const finishPurchaseButton = document.getElementById("finishPurchase");
-    finishPurchaseButton.addEventListener("click", () => finishPurchase());
-    getCoffeeList();
+  if (historyPage == true) {
+    document.getElementById("bodyHandler").innerHTML = purchaseHistorHtml();
+    const historyButton = document.getElementById("purchaseHistoryButton");
+    historyButton.setAttribute("disabled", "true");
+    historyButton.style["color"] = "#bd1d15";
+    historyButton.style.cursor = "auto";
+    const goBackToProductsButton = document.getElementById(
+      "returnToProductsHistory"
+    );
+    goBackToProductsButton.addEventListener("click", () => {
+      historyPage = false;
+      bodyHandler();
+      updateCart();
+      historyButton.removeAttribute("disabled");
+      historyButton.style.removeProperty("color");
+      historyButton.style.cursor = "pointer";
+    });
   } else {
-    if (selectedProducts.length == 0) {
-      document.getElementById("bodyHandler").innerHTML = emptyCartHtml();
+    if (purchaseFinished == false) {
+      document.getElementById("bodyHandler").innerHTML = bodyHtml();
+      const finishPurchaseButton = document.getElementById("finishPurchase");
+      finishPurchaseButton.addEventListener("click", (e) => {
+        e.preventDefault(), finishPurchase();
+      });
+      getCoffeeList();
     } else {
-      const selectedProductsFormatted = formatPurchase();
-      document.getElementById("bodyHandler").innerHTML = purchaseFinishedHtml(
-        selectedProductsFormatted
+      if (selectedProducts.length == 0) {
+        document.getElementById("bodyHandler").innerHTML = emptyCartHtml();
+      } else {
+        const selectedProductsFormatted = formatPurchase();
+        document.getElementById("bodyHandler").innerHTML = purchaseFinishedHtml(
+          selectedProductsFormatted
+        );
+      }
+      const goBackToProductsButton =
+        document.getElementById("returnToProducts");
+      goBackToProductsButton.addEventListener("click", () =>
+        returnToProducts()
       );
     }
-    const goBackToProductsButton = document.getElementById("returnToProducts");
-    goBackToProductsButton.addEventListener("click", () => returnToProducts());
   }
 };
 
@@ -342,19 +263,41 @@ const headerHandler = () => {
   document.getElementById("headerHandler").innerHTML = headerHTML();
   const logoutButton = document.getElementById("logoutButton");
   logoutButton.addEventListener("click", () => handleLogout());
+  const purchaseHistoryButton = document.getElementById(
+    "purchaseHistoryButton"
+  );
+  purchaseHistoryButton.addEventListener("click", () => {
+    historyPage = true;
+    bodyHandler();
+  });
 };
 
 const handleLogout = () => {
-  const newUsers = users.map((e) =>
-    e.name != loggedUser.name ? e : { ...e, currentCart: selectedProducts }
-  );
-  localStorage.setItem("users", JSON.stringify(newUsers));
-  purchaseFinished = false;
-  loggedUser = null;
-  localStorage.removeItem("loggedUser");
-  selectedProducts = [];
-  handleLogin();
-  document.getElementById("headerHandler").innerHTML = "";
+  Swal.fire({
+    title: "Are you sure you want to log out?",
+    text: "Your cart will be saved when you login next time!",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#1e1e1e",
+    cancelButtonColor: "#1e1e1e",
+    confirmButtonText: "Yes",
+    background: "#d2b48c",
+    iconColor: '#1e1e1e',
+
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const newUsers = users.map((e) =>
+        e.name != loggedUser.name ? e : { ...e, currentCart: selectedProducts }
+      );
+      localStorage.setItem("users", JSON.stringify(newUsers));
+      purchaseFinished = false;
+      loggedUser = null;
+      localStorage.removeItem("loggedUser");
+      selectedProducts = [];
+      handleLogin();
+      document.getElementById("headerHandler").innerHTML = "";
+    }
+  });
 };
 
 const checkLoginStatus = () => {
@@ -369,17 +312,33 @@ const checkLoginStatus = () => {
   }
 };
 
-const handleLogin = () => {
+const handleLogin = async () => {
   const check = checkLoginStatus();
   document.getElementById("mainHandler").innerHTML = mainBody();
-  filteredProducts = filteredProductsHandler();
   if (check) {
+    products = await fetch("./products.json")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        return data;
+      });
+    filteredProducts = filteredProductsHandler();
+
     localStorage.setItem(
       "loggedUser",
       JSON.stringify({ ...loggedUser, lastLoginTs: new Date() })
     );
     headerHandler();
     bodyHandler();
+    Toastify({
+      text: `Welcome ${loggedUser.name}`,
+      duration: 3000,
+      gravity: "bottom",
+      style: {
+        background: "#1e1e1e",
+      },
+    }).showToast();
     selectedProducts = !!loggedUser?.currentCart ? loggedUser?.currentCart : [];
     updateCart();
   } else {
@@ -491,7 +450,7 @@ const coffeeCardHtml = (product, index) => {
                 </button>
             </div>
         </div>
-        <div style="font-size: 14px;">${product.name.toUpperCase()}</div>
+        <div class="productName">${product.name.toUpperCase()}</div>
         <div>$ ${product.price}</div>
     </div>
     <div class="productType">
@@ -618,7 +577,7 @@ const login = () => {
     <input class="coffeeButton extraMargin" type="submit" />
   </form>
   <div class="errorMessage" id="loginError"></div>
-  <div class="signLink" id="registerButton" style="color: blue; cursor: pointer">Dont have an account? Sign up here</div>
+  <div class="signLink" id="registerButton">Dont have an account? Sign up here</div>
 </section>;`;
 };
 
@@ -644,7 +603,7 @@ const register = () => {
     <input class="coffeeButton extraMargin"type="submit" />
     <div class="errorMessage" id="registerError"></div>
   </form>
-  <div class="signLink" id="loginButton" style="color: blue; cursor: pointer">Already have an account? Sign in here</div>
+  <div class="signLink" id="loginButton">Already have an account? Sign in here</div>
 </section>;`;
 };
 
@@ -657,11 +616,62 @@ const headerHTML = () => {
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link logout" style="cursor: pointer;"id="logoutButton">Logout</a>
+                        <button class="nav-link logout" id="purchaseHistoryButton">History</button>
                     </li>
                 </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <button class="nav-link logout" id="logoutButton">Logout</button>
+                    </li>
+                </ul>
+
             </div>
           </nav>`;
+};
+
+const purchaseHistorHtml = () => {
+  return `<div class='finishContainer'>
+  <div class="finishTitle">
+    <h4>Your previous purchases:</h4>
+  <div>
+  ${previousPurchasesListHandler()}
+  <div class="buttonRight">
+    <button id="returnToProductsHistory" class="coffeeButton">Return to products</button>
+  </div>
+</div>`;
+};
+
+const formatDate = (crudeDate) => {
+  const date = new Date(crudeDate);
+  const yyyy = date.getFullYear();
+  let mm = date.getMonth() + 1;
+  let dd = date.getDate();
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+  const formattedDate = dd + "/" + mm + "/" + yyyy;
+  return formattedDate;
+};
+
+const previousPurchasesListHandler = () => {
+  if (loggedUser.purchaseHistory.length == 0) {
+    return `<div>No purchases yet!</div>`;
+  } else {
+    return loggedUser.purchaseHistory
+      .map(
+        (e, i) => 
+        `<div class="previousPurchaseContainer">
+          <button class="btn btn-primary previousPurchaseButton" type="button" data-bs-toggle="collapse" data-bs-target="#${i}" aria-expanded="false" aria-controls="${i}">
+            Date of purchase: ${formatDate(Date.parse(e.dateOfPurchase))}
+          </button>
+          <div class="collapse itemsInCart" id="${i}">
+          <div class="card card-body">
+            ${formatPurchasePrevious(e.products)}
+          </div>
+        </div>
+      </div>`
+      )
+      .join("");
+  }
 };
 
 window.onload = () => handleLogin();

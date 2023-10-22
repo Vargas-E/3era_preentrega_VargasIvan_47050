@@ -116,6 +116,7 @@ footer .socialLinkIcon {
 }
 .navBar .logout {
   margin-right: 1rem;
+  cursor: pointer;
 }
 
 .genericContainer, .productOptionsFormContainer .finishContainer, .genericContainer--fixMargin, .genericContainer--button {
@@ -165,6 +166,18 @@ footer .socialLinkIcon {
 
 .genericContainer--fixMargin {
   margin: 0;
+}
+
+.previousPurchaseContainer {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+.previousPurchaseContainer .previousPurchaseButton {
+  width: 100%;
+  background-color: #1e1e1e;
+  border-color: #1e1e1e;
+  border-radius: 5px;
 }
 
 .coffeeButton, .coffeeButton--square, .coffeeButton--bottom {
@@ -253,6 +266,9 @@ footer .socialLinkIcon {
   justify-content: space-between;
   align-items: center;
   vertical-align: middle;
+}
+.coffeeCard .coffeeDesc .quantitySelectorContainer .productName, .coffeeCard--space-responsive .coffeeDesc .quantitySelectorContainer .productName {
+  font-size: 14px;
 }
 .coffeeCard .coffeeDesc .quantitySelectorContainer .itemCounter, .coffeeCard--space-responsive .coffeeDesc .quantitySelectorContainer .itemCounter {
   width: 50%;
@@ -544,6 +560,7 @@ footer .socialLinkIcon {
 }
 .navBar .logout {
   margin-right: 1rem;
+  cursor: pointer;
 }
 
 .genericContainer, .productOptionsFormContainer .finishContainer, .genericContainer--button, .genericContainer--fixMargin {
@@ -593,6 +610,18 @@ footer .socialLinkIcon {
 
 .genericContainer--fixMargin {
   margin: 0;
+}
+
+.previousPurchaseContainer {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+.previousPurchaseContainer .previousPurchaseButton {
+  width: 100%;
+  background-color: #1e1e1e;
+  border-color: #1e1e1e;
+  border-radius: 5px;
 }
 
 .coffeeButton, .coffeeButton--bottom, .coffeeButton--square {
@@ -681,6 +710,9 @@ footer .socialLinkIcon {
   justify-content: space-between;
   align-items: center;
   vertical-align: middle;
+}
+.coffeeCard .coffeeDesc .quantitySelectorContainer .productName, .coffeeCard--space-responsive .coffeeDesc .quantitySelectorContainer .productName {
+  font-size: 14px;
 }
 .coffeeCard .coffeeDesc .quantitySelectorContainer .itemCounter, .coffeeCard--space-responsive .coffeeDesc .quantitySelectorContainer .itemCounter {
   width: 50%;

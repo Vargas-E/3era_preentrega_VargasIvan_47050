@@ -1,0 +1,137 @@
+[
+  {
+    "id": 0,
+    "name": "americano",
+    "image": "./assets/images/products/americano.webp",
+    "price": 400,
+    "tags": ["hot", "high_caffeine", "non_alcoholic"],
+    "desc": "This brew is becoming a favourite amongst coffee connoisseurs looking for a bold, strong cup",
+    "quantity": 1
+  },
+  {
+    "id": 1,
+    "name": "cortado",
+    "image": "./assets/images/products/cortado.webp",
+    "price": 400,
+    "tags": ["hot", "high_caffeine", "non_alcoholic"],
+    "desc": "Cortado coffee is made with lightly steamed milk, no froth or foam. The steamed milk on top reduces the acidity of the coffee and creates a micro-foam which doesn’t separate from the espresso, giving it a strong and rich flavour.",
+    "quantity": 1
+  },
+  {
+    "id": 2,
+    "name": "cafe au lait",
+    "image": "./assets/images/products/cafe_au_lait.webp",
+    "price": 450,
+    "tags": ["hot", "high_caffeine", "non_alcoholic"],
+    "desc": "The Café au Lait is made using brewed coffee and steamed milk, in a typical ratio of one part coffee to one part steamed milk",
+    "quantity": 1
+  },
+  {
+    "id": 3,
+    "name": "drip coffee",
+    "image": "./assets/images/products/drip_coffee.webp",
+    "price": 500,
+    "tags": ["hot", "high_caffeine", "non_alcoholic"],
+    "desc": "Drip coffee is clean-bodied with a rounder, more simplistic flavour profile. It’s often praised due to its mellow and less intense flavour as it’s less concentrated than espresso.",
+    "quantity": 1
+  },
+  {
+    "id": 4,
+    "name": "cold brew",
+    "image": "./assets/images/products/cold_brew.webp",
+    "price": 500,
+    "tags": ["cold", "high_caffeine", "non_alcoholic"],
+    "desc": "Cold brew coffee is made by slowly steeping coarsely ground coffee beans in room temperature water for at least six hours",
+    "quantity": 1
+  },
+  {
+    "id": 5,
+    "name": "decaf",
+    "image": "./assets/images/products/decaf.webp",
+    "price": 450,
+    "tags": ["hot", "no_caffeine", "non_alcoholic"],
+    "desc": "Decaf coffee is made from regular coffee beans that go through a process to remove the majority of the caffeine.",
+    "quantity": 1
+  },
+  {
+    "id": 6,
+    "name": "flat white",
+    "image": "./assets/images/products/flat_white.webp",
+    "price": 500,
+    "tags": ["hot", "no_caffeine", "non_alcoholic"],
+    "desc": "A flat white is a blend of micro-foamed milk poured over a single or double shot of espresso. This microfoam is steamed milk infused with air, to create a smooth and velvety texture and creamy taste.",
+    "quantity": 1
+  },
+  {
+    "id": 7,
+    "name": "irish coffee",
+    "image": "./assets/images/products/irish.webp",
+    "price": 700,
+    "tags": ["hot", "no_caffeine", "alcoholic"],
+    "desc": "Irish coffee has four main ingredients: coffee, Irish whiskey, sugar and cream.",
+    "quantity": 1
+  },
+  {
+    "id": 8,
+    "name": "macchiato",
+    "image": "./assets/images/products/macchiato.webp",
+    "price": 650,
+    "tags": ["cold", "no_caffeine", "non_alcoholic"],
+    "desc": "The macchiato is an espresso coffee drink, topped with a small amount of foamed or steamed milk to allow the taste of the espresso to still shine through.",
+    "quantity": 1
+  },
+  {
+    "id": 9,
+    "name": "instant coffee",
+    "image": "./assets/images/products/instant_coffee.webp",
+    "price": 250,
+    "tags": ["hot", "no_caffeine", "non_alcoholic"],
+    "desc": "Instant coffee is the dehydrated version of our favourite drink, readily available with the same great taste. Not to mention, it is quick and easy to make. In a rush? This is what you want.",
+    "quantity": 1
+  },
+  {
+    "id": 10,
+    "name": "frapuccino",
+    "image": "./assets/images/products/frapuccino.webp",
+    "price": 750,
+    "tags": ["cold", "no_caffeine", "non_alcoholic"],
+    "desc": "Frapuccino based on coffee. Sweet and creamy combination of coffee, milk and ice served cold.",
+    "quantity": 1
+  },
+  {
+    "id": 11,
+    "name": "mocha frapuccino",
+    "image": "./assets/images/products/mocha_frapuccino.webp",
+    "price": 750,
+    "tags": ["cold", "no_caffeine", "non_alcoholic"],
+    "desc": "coffee based frapuccino. Delicious mixture of coffee, milk and chocolate, blended with ice, with a whipped cream and mocha syrup finish.",
+    "quantity": 1
+  },
+  {
+    "id": 12,
+    "name": "strawberry frapuccino",
+    "image": "./assets/images/products/strawberry_frapuccion.webp",
+    "price": 750,
+    "tags": ["cold", "no_caffeine", "non_alcoholic"],
+    "desc": "Strawberry based frapuccino. Delicious mixture of strawberries and milk , blended with ice, with a whipped cream and strawberry syrup finish.",
+    "quantity": 1
+  },
+  {
+    "id": 13,
+    "name": "anatolia coffee",
+    "image": "./assets/images/products/anatolia_coffee.webp",
+    "price": 750,
+    "tags": ["hot", "alcoholic"],
+    "desc": "Cognac and expresso,topped with whipped cream and cinnamon syrup",
+    "quantity": 1
+  },
+  {
+    "id": 14,
+    "name": "iced irish coffee",
+    "image": "./assets/images/products/iced_irish.webp",
+    "price": 750,
+    "tags": ["cold", "alcoholic"],
+    "desc": "Whiskey and expresso shaked and server cold. Perfect for a hot day after work.",
+    "quantity": 1
+  }
+]

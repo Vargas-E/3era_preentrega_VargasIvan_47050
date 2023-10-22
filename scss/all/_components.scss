@@ -110,6 +110,7 @@ footer {
   }
   .logout {
     margin-right: 1rem;
+    cursor: pointer;
   }
 }
 
@@ -154,6 +155,18 @@ footer {
 .genericContainer--fixMargin {
   @extend .genericContainer;
   margin: 0;
+}
+
+.previousPurchaseContainer {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  .previousPurchaseButton {
+    width: 100%;
+    background-color: #1e1e1e;
+    border-color:#1e1e1e;
+    border-radius: 5px;
+  }
 }
 
 .coffeeButton {
@@ -239,6 +252,9 @@ footer {
       justify-content: space-between;
       align-items: center;
       vertical-align: middle;
+      .productName {
+        font-size: 14px;
+      }
       .itemCounter {
         width: 50%;
         padding: 0.5rem;
