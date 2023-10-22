@@ -522,7 +522,7 @@ const purchaseFinishedHtml = (selectedProductsFormatted) => {
               <h4>Thank you for choosing us! Your purchase was successful!</h4>
             <div>
             <div class="itemsInCart">
-              <h5>Tus Productos:</h5>
+              <h5>Your purchase:</h5>
               <div class="purchasedProductsList">
                 ${selectedProductsFormatted}
               </div>
