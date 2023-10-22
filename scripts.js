@@ -67,6 +67,15 @@ class Product {
     } else {
       selectedProducts.push({ ...this });
     }
+
+    Toastify({
+      text: `${this.name} (${this.quantity}) added to cart!`,
+      duration: 1500,
+      gravity: "bottom",
+      style: {
+        background: "#1e1e1e",
+      },
+    }).showToast();
     this.resetCounter();
     updateCart();
   }
@@ -93,14 +102,14 @@ const getCoffeeList = () => {
     add.addEventListener("click", () => filteredProducts[index].add());
     addToCart.addEventListener("click", () => {
       filteredProducts[index].addToCart();
-      Toastify({
-        text: "Product added to cart!",
-        duration: 1500,
-        gravity: "bottom",
-        style: {
-          background: "#1e1e1e",
-        },
-      }).showToast();
+      // Toastify({
+      //   text: "P added to cart!",
+      //   duration: 1500,
+      //   gravity: "bottom",
+      //   style: {
+      //     background: "#1e1e1e",
+      //   },
+      // }).showToast();
     });
   }
 };
