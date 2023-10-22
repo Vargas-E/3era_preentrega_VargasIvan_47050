@@ -190,8 +190,10 @@ const finishPurchase = () => {
 };
 
 const returnToProducts = () => {
+  console.log("entre acaa!!")
   purchaseFinished = false;
   selectedProducts = [];
+  window.scrollTo(0, 0);
   bodyHandler();
 };
 
@@ -227,9 +229,17 @@ const bodyHandler = () => {
       "returnToProductsHistory"
     );
     goBackToProductsButton.addEventListener("click", () => {
+      console.log(1)
       historyPage = false;
+      console.log("purchaseFinished:", purchaseFinished);
+      if (purchaseFinished == true) {
+        console.log("entre aca!!")
+        purchaseFinished = false;
+        selectedProducts = [];
+      }
       bodyHandler();
       updateCart();
+      window.scrollTo(0, 0);
       historyButton.removeAttribute("disabled");
       historyButton.style.removeProperty("color");
       historyButton.style.cursor = "pointer";
