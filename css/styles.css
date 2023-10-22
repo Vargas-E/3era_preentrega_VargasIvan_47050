@@ -898,6 +898,7 @@ a div {
 }
 .productOptionsFormContainer .finishContainer .finishTitle {
   text-align: center;
+  margin-bottom: 2rem;
 }
 .productOptionsFormContainer .finishContainer .itemsInCart {
   font-size: 16px;

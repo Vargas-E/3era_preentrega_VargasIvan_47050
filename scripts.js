@@ -11,6 +11,7 @@ class User {
 
 const selectedTags = [];
 let purchaseFinished = false;
+let historyPage = false;
 let loggedUser = !!JSON.parse(localStorage.getItem("loggedUser"))
   ? new User(JSON.parse(localStorage.getItem("loggedUser")))
   : null;
@@ -23,7 +24,6 @@ let selectedProducts = [];
 
 let products;
 
-let historyPage = false;
 
 class Product {
   constructor(product) {
@@ -102,14 +102,6 @@ const getCoffeeList = () => {
     add.addEventListener("click", () => filteredProducts[index].add());
     addToCart.addEventListener("click", () => {
       filteredProducts[index].addToCart();
-      // Toastify({
-      //   text: "P added to cart!",
-      //   duration: 1500,
-      //   gravity: "bottom",
-      //   style: {
-      //     background: "#1e1e1e",
-      //   },
-      // }).showToast();
     });
   }
 };
@@ -291,8 +283,7 @@ const handleLogout = () => {
     cancelButtonColor: "#1e1e1e",
     confirmButtonText: "Yes",
     background: "#d2b48c",
-    iconColor: '#1e1e1e',
-
+    iconColor: "#1e1e1e",
   }).then((result) => {
     if (result.isConfirmed) {
       const newUsers = users.map((e) =>
@@ -303,6 +294,9 @@ const handleLogout = () => {
       loggedUser = null;
       localStorage.removeItem("loggedUser");
       selectedProducts = [];
+      historyPage = false;
+      purchaseFinished = false; 
+
       handleLogin();
       document.getElementById("headerHandler").innerHTML = "";
     }
@@ -333,7 +327,6 @@ const handleLogin = async () => {
         return data;
       });
     filteredProducts = filteredProductsHandler();
-
     localStorage.setItem(
       "loggedUser",
       JSON.stringify({ ...loggedUser, lastLoginTs: new Date() })
@@ -642,7 +635,7 @@ const purchaseHistorHtml = () => {
   return `<div class='finishContainer'>
   <div class="finishTitle">
     <h4>Your previous purchases:</h4>
-  <div>
+  </div>
   ${previousPurchasesListHandler()}
   <div class="buttonRight">
     <button id="returnToProductsHistory" class="coffeeButton">Return to products</button>
@@ -667,8 +660,8 @@ const previousPurchasesListHandler = () => {
   } else {
     return loggedUser.purchaseHistory
       .map(
-        (e, i) => 
-        `<div class="previousPurchaseContainer">
+        (e, i) =>
+          `<div class="previousPurchaseContainer">
           <button class="btn btn-primary previousPurchaseButton" type="button" data-bs-toggle="collapse" data-bs-target="#${i}" aria-expanded="false" aria-controls="${i}">
             Date of purchase: ${formatDate(Date.parse(e.dateOfPurchase))}
           </button>
