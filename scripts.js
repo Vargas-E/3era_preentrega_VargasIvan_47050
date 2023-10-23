@@ -292,8 +292,9 @@ const handleLogout = () => {
     iconColor: "#1e1e1e",
   }).then((result) => {
     if (result.isConfirmed) {
+      console.log("purchasefinished logout:", purchaseFinished)
       const newUsers = users.map((e) =>
-        e.name != loggedUser.name ? e : { ...e, currentCart: selectedProducts }
+        e.name != loggedUser.name ? e : { ...e, currentCart: purchaseFinished == true ? [] : selectedProducts }
       );
       localStorage.setItem("users", JSON.stringify(newUsers));
       purchaseFinished = false;
