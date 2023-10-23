@@ -295,14 +295,14 @@ const handleLogout = () => {
       const newUsers = users.map((e) =>
         e.name != loggedUser.name ? e : { ...e, currentCart: selectedProducts }
       );
+      console.log("selectedProducts:", selectedProducts)
       localStorage.setItem("users", JSON.stringify(newUsers));
       purchaseFinished = false;
       loggedUser = null;
+      users = newUsers;
       localStorage.removeItem("loggedUser");
       selectedProducts = [];
       historyPage = false;
-      purchaseFinished = false; 
-
       handleLogin();
       document.getElementById("headerHandler").innerHTML = "";
     }
@@ -333,10 +333,10 @@ const handleLogin = async () => {
         return data;
       });
     filteredProducts = filteredProductsHandler();
-    localStorage.setItem(
-      "loggedUser",
-      JSON.stringify({ ...loggedUser, lastLoginTs: new Date() })
-    );
+    // localStorage.setItem(
+    //   "loggedUser",
+    //   JSON.stringify({ ...loggedUser, lastLoginTs: new Date() })
+    // );
     headerHandler();
     bodyHandler();
     Toastify({
@@ -348,6 +348,7 @@ const handleLogin = async () => {
       },
     }).showToast();
     selectedProducts = !!loggedUser?.currentCart ? loggedUser?.currentCart : [];
+    console.log("selectedProducts:", selectedProducts)
     updateCart();
   } else {
     document.getElementById("bodyHandler").innerHTML = login();
