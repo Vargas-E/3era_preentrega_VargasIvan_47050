@@ -295,7 +295,6 @@ const handleLogout = () => {
       const newUsers = users.map((e) =>
         e.name != loggedUser.name ? e : { ...e, currentCart: selectedProducts }
       );
-      console.log("selectedProducts:", selectedProducts)
       localStorage.setItem("users", JSON.stringify(newUsers));
       purchaseFinished = false;
       loggedUser = null;
@@ -348,7 +347,6 @@ const handleLogin = async () => {
       },
     }).showToast();
     selectedProducts = !!loggedUser?.currentCart ? loggedUser?.currentCart : [];
-    console.log("selectedProducts:", selectedProducts)
     updateCart();
   } else {
     document.getElementById("bodyHandler").innerHTML = login();
@@ -683,11 +681,23 @@ const previousPurchasesListHandler = () => {
   }
 };
 
-window.onload = () => handleLogin();
+window.onload = () => {
+  handleLogin()
+};
 
 window.addEventListener("beforeunload", () => {
-  if (selectedProducts.length > 0) {
+  if (selectedProducts.length > 0 && purchaseFinished == false) {
     loggedUser = { ...loggedUser, currentCart: selectedProducts };
+    localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+    localStorage.setItem(
+      "users",
+      JSON.stringify(
+        users.map((e) => (e.name != loggedUser.name ? e : loggedUser))
+      )
+    );
+  }
+  if (purchaseFinished == true) {
+    loggedUser = {...loggedUser, currentCart: []}
     localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
     localStorage.setItem(
       "users",
