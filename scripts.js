@@ -616,7 +616,7 @@ const register = () => {
 
 const headerHTML = () => {
   return `<nav class="navbar navbar-dark navbar-expand-md navBar">
-            <a href="../index.html"><img class="logo" src="./assets/images/coffee_logo.webp"></a>
+            <img class="logo" src="./assets/images/coffee_logo.webp">
             <button class="navbar-toggler sand" data-bs-toggle="collapse" data-bs-target="#navbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
